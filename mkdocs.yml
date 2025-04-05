@@ -1,0 +1,138 @@
+# Site information
+site_name:        Shell And Job Scripting 
+site_description: Shell and Job Scripting notes for the HPC-DIC courses 
+site_author:      SCS
+site_url:         https://mmesiti.github.io/sajscripting-scc
+
+# Copyright
+copyright: Copyright © 2025 KIT/SCC/SCS - <a href="https://www.scc.kit.edu/en/legals.php">Contact / Privacy Policy / Legal Notice</a>
+strict: true
+
+# Documentation and theme directories
+docs_dir:  content
+site_dir:  site
+theme:
+  name: material
+  language: 'en'
+  logo: 'common/images/kit_nhr_logo.png'
+  font: false # kein Google verwenden!
+
+  icon:
+    repo: fontawesome/brands/gitlab
+  favicon: 'common/images/favicon.png'
+  features:
+    - navigation.tabs
+    # - navigation.tabs.sticky
+    - navigation.sections
+    - navigation.expand
+    - navigation.instant
+    - content.code.copy
+extra_css:
+  - includes/extra.css
+extra_javascript:
+  - includes/extra.js
+
+# Plugins
+plugins:
+  - search
+  - git-revision-date-localized
+
+# Extensions
+# See: https://squidfunk.github.io/mkdocs-material/setup/extensions/python-markdown/
+markdown_extensions:
+  # - fontawesome_markdown
+  # The Admonition extension adds support for admonitions, more commonly known as call-outs
+  - admonition
+  # The Attribute Lists extension allows to add HTML attributes and CSS classes to almost every Markdown inline- and block-level element with a special syntax
+  - attr_list
+  # The Definition Lists extension adds the ability to add definition lists (more commonly known as description lists – dl in HTML)
+  - def_list
+  # The Footnotes extension allows to define inline footnotes, which are then rendered below all Markdown content of a document
+  - footnotes
+  # The Emoji extension adds support for inserting emoji via simple short names enclosed within colons
+  # https://facelessuser.github.io/pymdown-extensions/extensions/emoji/
+  - pymdownx.emoji:
+      emoji_index: !!python/name:materialx.emoji.twemoji
+      emoji_generator: !!python/name:materialx.emoji.to_svg
+  # Highlight is an extension that adds support for code highlighting
+  # https://facelessuser.github.io/pymdown-extensions/extensions/highlight/
+  - pymdownx.highlight
+  # https://facelessuser.github.io/pymdown-extensions/extensions/superfences/
+  - pymdownx.superfences
+  - pymdownx.tabbed:
+      alternate_style: true
+  # Keys is an extension to make entering and styling keyboard key presses easier
+  # https://facelessuser.github.io/pymdown-extensions/extensions/keys/
+  - pymdownx.keys
+  # Caret adds two different features which are syntactically built around the ^ character.
+  # The first is insert which inserts <ins></ins> tags.
+  # The second is superscript which inserts <sup></sup> tags
+  # https://facelessuser.github.io/pymdown-extensions/extensions/caret/
+  - pymdownx.caret
+  # Tilde adds two different features which are syntactically built around the ~ character:
+  # delete which inserts <del></del> tags and subscript which inserts <sub></sub> tags.
+  # https://facelessuser.github.io/pymdown-extensions/extensions/caret/
+  - pymdownx.tilde
+  # Details is an extension that creates collapsible elements that hide their conten
+  - pymdownx.details
+  # Snippets is an extension to insert markdown or HTML snippets into another markdown file
+  # https://facelessuser.github.io/pymdown-extensions/extensions/snippets/
+  - pymdownx.snippets
+  # The Table of Contents extension automatically generates a table of contents from a document
+  - toc:
+      permalink: true
+  # The Markdown in HTML extension allows for writing Markdown inside of HTML
+  - md_in_html
+
+# Validation
+validation:
+  nav:
+    # omitted_files: warn # -> too many warnigs at the moment
+    absolute_links: warn
+  links:
+    not_found: warn
+    absolute_links: info
+    unrecognized_links: info
+
+not_in_nav: |
+    common/
+
+
+nav:
+  - 'index.md'
+#
+#  - 'Intermediate'
+#    - "Unix Tools"
+#      - unix_tools.md
+#    - 'Bash features and utilities'
+#      - bash/dealing_with_repetition.md
+#      # - bash/for_loops.md
+#      # - bash/expansions_and_filenames.md
+#      - bash/quality_of_life.md
+#      - bash/composability.md
+#      # - streams_and_redirections.md
+#      # - pipes_and_filters.md
+#      # - bash/command_process_substitution.md
+#    - 'SSH Tips and Tricks'
+#      - ssh/tips-and-tricks.md
+#    - 'Discussion: Workflows'
+#    - 'Job Scripting':
+#      - best_practices.md
+#      - defensive_programming.md # set -xeuo pipefail
+#      - bash/foreground_background.md # no traps
+#      - embarrassingly_parallel.md # parbatch
+#
+#  - 'Advanced'
+#    - 'Bash features and utilities'
+#      - bash/the_manual.md
+#      - bash/making_choices.md
+#      # - && and || and ifs
+#      - bash/composability2.md
+#      # functions
+#      # streams and redirections (more advanced)
+#      - bash/traps.md
+#    - 'Discussion: Workflows'
+#    - 'Job Scripting':
+#      - special_filesystems.md
+#      - job_chaining.md
+#      - embarrassingly_parallel_2.md # gnu parallel
