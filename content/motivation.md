@@ -4,7 +4,7 @@ Advantages of using the shell for scientific research:
 
 - Bash scripting helps with **Reproducibility** 
   which is paramount for scientists
-- Working with HPC:
+- Working with **HPC**:
 
   - *Bash* scripts are the best way to launch jobs on a supercomputer
   - the shell is the best supported way to interact with a supercomputer
@@ -12,7 +12,7 @@ Advantages of using the shell for scientific research:
 General advantages of Command Line Interfaces compared to Graphical User Interfaces:
 
 - Robust automation
-- Easy Transition between interaction/exploration and automation
+- Easy Transition between interactive work/exploration and automation
 
 
 

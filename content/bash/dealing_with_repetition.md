@@ -2,7 +2,11 @@
 
 - For Loops
 
-- Best pratices with variables and filenames
+- using `seq`
 
+
+## Typical use: iterate on filenames
+
+- Best pratices with variables and filenames
 
 
