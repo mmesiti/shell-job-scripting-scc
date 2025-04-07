@@ -9,14 +9,11 @@ popularized by Greg Wilson's
 [Teaching Tech Together](https://teachtogether.tech/en/)
 and references therein).
 
-Teaching 
-(and more in general, communication)
-objectives
-are
-
+```{objectives}
 1. Ease the use of the shell and the terminal in general
 2. Stimulate discussion with the audience to collect use cases
 3. Show useful patterns to carry out common tasks in (slurm) job scripts
+```
 
 
 Everything covered here
@@ -26,19 +23,23 @@ and can also be retrieved on a whim with a LLM,
 so why repeat it here?
 1. As with a lot of things in teaching,
 the goal is to first of all cover 
-the *unknown unknowns* of the student, 
+the *unknown unknowns* of the student;
 2. To guide the students
 through those important ideas
 that are also too hard to approach alone,
 and that would not be learned 
 without guidance.
 
+```{admonition} Suggestions welcome!
 Suggestions/criticism are welcome,
 so feel free to open issues 
 and pull requests 
-to this repository.
+to this repository
+(see "Edit on GitHub" icon
+in the upper right corner).
+```
 
-It is based on/inspired by the following sources:
+## Sources and Inspiration
 
 - The already existing slides and the exercises of the HPC-DIC courses by SCC/SCS at KIT
 - The "Shell scripts and tips" course [by NRIS](https://training.pages.sigma2.no/tutorials/shell-scripts-and-tips/)
@@ -46,6 +47,8 @@ It is based on/inspired by the following sources:
 - The software carpentry [Shell Novice Lesson](https://swcarpentry.github.io/shell-novice/).
 - The Bash manual.
 
+
+## Known issues
 
 The split between "Intermediate" and "Advanced" 
 is somewhat arbitrary, 
@@ -56,10 +59,9 @@ to talk about the most useful things first,
 and assume that the more obscure a feature is, 
 the less the return on investment is going to be.
 
-## Known issues
-
 Problems can and will be discussed 
-using the issue feature on the service where this documentation is hosted.
+using the issue feature 
+on the service where this documentation is hosted.
 
 
 ## Table of Content
@@ -71,14 +73,13 @@ motivation.md
 ```{toctree}
 :caption: Intermediate 
 bash/dealing_with_repetition.md
-bash/quality_of_life.md
+bash/interactive_tips_and_tricks.md
 bash/composability.md
 ssh/tips-and-tricks.md
 unix_tools.md
 workflow-discussion_intermediate.md
 general_best_practices.md
 defensive_programming.md
-bash/foreground_background.md
 embarrassingly_parallel.md
 ```
 ```{toctree}
@@ -86,7 +87,7 @@ embarrassingly_parallel.md
 bash/the_manual.md
 bash/making_choices.md
 bash/composability2.md
-bash/multitasking.md
+bash/interactive_tips_and_tricks2.md
 workflow-discussion_intermediate.md
 embarrassingly_parallel_advanced.md
 job_chaining.md

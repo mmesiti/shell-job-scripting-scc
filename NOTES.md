@@ -40,7 +40,6 @@ Seen as prerequisite
   - best practices with file names
   - '' vs "": expansion
   - using the terminal efficiently 
-    - inputrc, editor for shell commands (demo) (EDITOR env variable)
     - history 
   - exercises
   - STDIN vs command arguments
@@ -83,6 +82,7 @@ Seen as prerequisite
   - functions
   - arrays
   - using the terminal even more efficiently
+    - inputrc, editor for shell commands (demo) (EDITOR env variable)
   - more advanced shell tools and their composability
 
 - tmux (gotcha with login nodes)

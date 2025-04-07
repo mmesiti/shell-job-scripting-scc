@@ -1,12 +1,61 @@
 # Dealing with repetition
 
-- For Loops
+```{objectives} 
+1. Repeat actions on multiple files using for loops and pathname expansion (AKA globbing)
+2. Iterate on values using `seq`
+```
 
-- using `seq`
+## Iterating on multiple files/directories with `for` loops
+
+Example: 
+
+```bash
+for filename in data/*.dat 
+do
+   ./process.sh "$filename"
+done
+```
+What is happening here?
+1. `data/*.dat` is expanded to a list of file names
+    via *globbing* or *pathname expansion*.  
+    See it with `echo`:
+    ```bash
+    echo data/*.dat
+    ```
+2. The *variable* `filename` is assigned 
+   one value from the list,
+   for each time the loop body is executed
+
+## `xargs` instead of `for`
+
+If the loop body is a one-liner,
+an alternative is particulary convenient.
+
+Typically we use *fist* the command to generate the list 
+we want to iterate on.  
+For example:
+```bash
+find data -name '*.dat'
+```
+We can use a *pipe* and the `xargs` command to
+
+```bash
+find data -name '*.dat' | xargs -I{} ./process.sh {}
+```
+
+## `seq` for iterating on non-integer values 
+
+Bash can only do integer arithmetics by itself.  
+`seq` can be used to generate a sequence of floating point values:
+
+```bash
+for x in `seq 0.3 0.1 1.1`
+do 
+    ./simulate "$x"
+done
+
+```
 
 
-## Typical use: iterate on filenames
-
-- Best pratices with variables and filenames
 
 
