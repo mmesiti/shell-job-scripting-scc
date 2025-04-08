@@ -1,12 +1,17 @@
-# Unix Tools: Reference
+# Unix Tools: Reference and examples
 
-- less
-- grep
+## "Vertical"
 - head
 - tail
-- diff
+- cat 
+- grep
 - sort
+
+## "Horizontal"
 - cut
+- paste
+
+## Other
 - wc 
 - du
 - find

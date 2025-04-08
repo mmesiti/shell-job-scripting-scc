@@ -11,6 +11,7 @@ objectives:
 - ssh keys: pros and cons
 - Limitations specific to HoreKa and BWUniCluster
 - `ssh-keygen`
+- `ssh-agent`
 
 
 The May 2020 security outages:

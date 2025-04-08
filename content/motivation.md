@@ -25,4 +25,10 @@ because of:
   not on readability and ease of maintenance
 - lack of complex data structures
 
+## Setup to follow
 
+You can clone this repository
+```bash
+git clone https://github.com/mmesiti/shell-job-scripting-scc.git 
+```
+and use the [examples](https://github.com/mmesiti/shell-job-scripting-scc/tree/main/examples) directory to follow along.

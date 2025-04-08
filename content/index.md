@@ -41,10 +41,12 @@ in the upper right corner).
 
 ## Sources and Inspiration
 
-- The already existing slides and the exercises of the HPC-DIC courses by SCC/SCS at KIT
-- The "Shell scripts and tips" course [by NRIS](https://training.pages.sigma2.no/tutorials/shell-scripts-and-tips/)
-- The [linux shell tutorial](https://aaltoscicomp.github.io/linux-shell/) by Aalto Science IT department (very detailed course, goes deeper than what we are trying to do here).
-- The software carpentry [Shell Novice Lesson](https://swcarpentry.github.io/shell-novice/).
+- The already existing slides and the exercises of the HPC-DIC courses by SCC/SCS at KIT;
+- The "Shell scripts and tips" course [by NRIS](https://training.pages.sigma2.no/tutorials/shell-scripts-and-tips/);
+- The [linux shell tutorial](https://aaltoscicomp.github.io/linux-shell/) by Aalto Science IT department (very detailed course, goes deeper than what we are trying to do here);
+- The software carpentry [Shell Novice Lesson](https://swcarpentry.github.io/shell-novice/);
+- The [Extra Unix Shell Material](https://carpentries-incubator.github.io/shell-extras/);
+  from [the Carpentries Incubator](https://github.com/carpentries-incubator/proposals/#the-carpentries-incubator);
 - The Bash manual.
 
 
@@ -73,10 +75,10 @@ motivation.md
 ```{toctree}
 :caption: Intermediate 
 bash/dealing_with_repetition.md
-bash/interactive_tips_and_tricks.md
 bash/composability.md
 ssh/tips-and-tricks.md
 unix_tools.md
+bash/interactive_tips_and_tricks.md
 workflow-discussion_intermediate.md
 general_best_practices.md
 defensive_programming.md
