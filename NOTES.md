@@ -99,3 +99,27 @@ Seen as prerequisite
 
 
 
+## Discussion of unix tools
+
+### "Vertical"
+- head
+- tail
+- cat 
+- grep
+- sort
+
+### "Horizontal"
+- cut
+- paste
+
+### Other
+- wc 
+- du
+- find
+- dirname and basename
+- xargs
+- tar
+- rsync
+- sed
+- curl
+- which/type

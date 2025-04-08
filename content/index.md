@@ -77,7 +77,7 @@ motivation.md
 bash/dealing_with_repetition.md
 bash/composability.md
 ssh/tips-and-tricks.md
-unix_tools.md
+jupyter/text_manipulation
 bash/interactive_tips_and_tricks.md
 workflow-discussion_intermediate.md
 general_best_practices.md
