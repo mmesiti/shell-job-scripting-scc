@@ -6,7 +6,7 @@
 # -- Project information -----------------------------------------------------
 # https://www.sphinx-doc.org/en/master/usage/configuration.html#project-information
 
-project = '"SCC/SCS Shell And Job Scripting"'
+project = "SCC/SCS Shell And Job Scripting"
 copyright: 'Copyright © 2025 KIT/SCC/SCS - <a href="https://www.scc.kit.edu/en/legals.php">Contact / Privacy Policy / Legal Notice</a>'
 author = "KIT/SCC/SCS"
 github_user = "mmesiti"
