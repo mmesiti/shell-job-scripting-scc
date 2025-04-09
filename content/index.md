@@ -9,6 +9,9 @@ popularized by Greg Wilson's
 [Teaching Tech Together](https://teachtogether.tech/en/)
 and references therein).
 
+**This is the first iteration of this material.**
+**Criticism and suggestions are welcome.**
+
 ```{objectives}
 1. Ease the use of the shell and the terminal in general
 2. Stimulate discussion with the audience to collect use cases
