@@ -9,29 +9,26 @@ popularized by Greg Wilson's
 [Teaching Tech Together](https://teachtogether.tech/en/)
 and references therein).
 
-**This is the first iteration of this material.**
-**Criticism and suggestions are welcome.**
+
+```{admonition} Teaching style: Type along
+Some of the content in this lesson 
+is a collection of notions,
+but the main style of this lesson
+is practical and following along,
+trying to type the commands 
+while the instructor does it.
+
+The instructor will follow these notes,
+so that if you get lost 
+you can get back to it.
+```
+
 
 ```{objectives}
 1. Ease the use of the shell and the terminal in general
 2. Stimulate discussion with the audience to collect use cases
 3. Show useful patterns to carry out common tasks in (slurm) job scripts
 ```
-
-
-Everything covered here
-is also covered at length 
-in countless other places on the internet
-and can also be retrieved on a whim with a LLM,
-so why repeat it here?
-1. As with a lot of things in teaching,
-the goal is to first of all cover 
-the *unknown unknowns* of the student;
-2. To guide the students
-through those important ideas
-that are also too hard to approach alone,
-and that would not be learned 
-without guidance.
 
 ```{admonition} Suggestions welcome!
 Suggestions/criticism are welcome,
@@ -41,6 +38,15 @@ to this repository
 (see "Edit on GitHub" icon
 in the upper right corner).
 ```
+
+## Setup to follow along
+
+You can clone this repository
+```bash
+git clone https://github.com/mmesiti/shell-job-scripting-scc.git 
+```
+and use the [examples](https://github.com/mmesiti/shell-job-scripting-scc/tree/main/examples) directory to follow along.
+
 
 ## Sources and Inspiration
 
@@ -53,21 +59,6 @@ in the upper right corner).
 - The Bash manual.
 
 
-## Known issues
-
-The split between "Intermediate" and "Advanced" 
-is somewhat arbitrary, 
-and only due to lesson time limits
-(which themselves are a result of assessed importance of the topics).
-The guiding principle here is 
-to talk about the most useful things first,
-and assume that the more obscure a feature is, 
-the less the return on investment is going to be.
-
-Problems can and will be discussed 
-using the issue feature 
-on the service where this documentation is hosted.
-
 
 ## Table of Content
 
@@ -77,13 +68,13 @@ motivation.md
 ```
 ```{toctree}
 :caption: Intermediate 
+general_best_practices.md
 bash/dealing_with_repetition.md
 bash/composability.md
 ssh/tips-and-tricks.md
 jupyter/text_manipulation
 bash/interactive_tips_and_tricks.md
 workflow-discussion_intermediate.md
-general_best_practices.md
 defensive_programming.md
 embarrassingly_parallel.md
 ```
@@ -96,6 +87,10 @@ bash/interactive_tips_and_tricks2.md
 workflow-discussion_intermediate.md
 embarrassingly_parallel_advanced.md
 job_chaining.md
+```
+```{toctree}
+:caption: Extra 
+instructor_notes.md
 ```
 
 

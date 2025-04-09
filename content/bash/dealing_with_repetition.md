@@ -45,6 +45,12 @@ find data -name '*.dat' | xargs -I{} ./process.sh {}
 
 ## `seq` for iterating on non-integer values 
 
+Bash can do some arithmetic, but only with integers:
+```bash
+echo $((5+4))
+```
+
+
 Bash can only do integer arithmetics by itself.  
 `seq` can be used to generate a sequence of floating point values:
 
