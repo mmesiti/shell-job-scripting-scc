@@ -8,14 +8,12 @@ A look at tools and practices that can help using SSH efficiently.
 - Adapt your ssh config to your needs for improved ergonomics
 ```
 ## SSH keys
-SSH key(pair)s are a way for a remote machine
+SSH key(pair)s are a mechanism for a remote machine
 to identify you.
 
-
-
-
-
-
+It is a common authentication method when:
+- Connecting to HPC clusters
+- Authenticating to GitHub/GitLab
 
 
 ### Generating a ssh keypair and registering it
