@@ -5,6 +5,10 @@
 2. Iterate on values using `seq`
 ```
 
+```{admonition} To follow along
+Please navigate to the `examples/dealing_with_repetition` directory
+```
+
 ## Iterating on multiple files/directories with `for` loops
 
 Example: 
@@ -31,7 +35,7 @@ What is happening here?
 If the loop body is a one-liner,
 an alternative is particulary convenient.
 
-Typically we use *fist* the command to generate the list 
+Typically we use *first* the command to generate the list 
 we want to iterate on.  
 For example:
 ```bash
@@ -43,15 +47,20 @@ We can use a *pipe* and the `xargs` command to
 find data -name '*.dat' | xargs -I{} ./process.sh {}
 ```
 
-## `seq` for iterating on non-integer values 
+## Non integer parameter scans with `seq` 
 
+The `for` loop has also another possible syntax,
+```bash
+for ((i=0;i<5;i++))
+do
+   echo $i
+done
+```
 Bash can do some arithmetic, but only with integers:
 ```bash
 echo $((5+4))
 ```
 
-
-Bash can only do integer arithmetics by itself.  
 `seq` can be used to generate a sequence of floating point values:
 
 ```bash
