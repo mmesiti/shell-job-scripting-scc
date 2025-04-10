@@ -76,6 +76,17 @@ jupyter/text_manipulation
 bash/interactive_tips_and_tricks.md
 workflow-discussion_intermediate.md
 defensive_programming.md
+embarrassingly_parallel.md
+```
+```{toctree}
+:caption: Advanced 
+bash/the_manual.md
+bash/making_choices.md
+bash/composability2.md
+bash/interactive_tips_and_tricks2.md
+workflow-discussion_intermediate.md
+embarrassingly_parallel_advanced.md
+job_chaining.md
 ```
 ```{toctree}
 :caption: Extra 
