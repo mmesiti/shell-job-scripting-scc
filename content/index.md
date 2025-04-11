@@ -80,7 +80,6 @@ workflow-discussion_intermediate.md
 ```{toctree}
 :caption: Advanced 
 bash/the_manual.md
-jupyter/control_flow
 bash/composability2.md
 bash/interactive_tips_and_tricks2.md
 defensive_programming.md
