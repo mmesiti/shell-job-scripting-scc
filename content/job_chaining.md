@@ -33,18 +33,20 @@ result_file="results/${name}.txt"
 (Adapted from [here](https://training.pages.sigma2.no/tutorials/independent-jobs-in-parallel/job-array.html))
 
 
-```{exercise} Arguments for the `--array` option 
-Look for the `--array` option in the sbatch `man`page.
-What arguments can be used with it?
-
-```
-
-
 ## Job chaining using SLURM dependencies
+
+Performing all the steps of a workflow 
+from scratch in a single slurm job 
+might waste resources if the steps differ 
+in the amount of resource needed.
+
+Jobs can be chained using slurm dependencies:
 
 - Use sbatch `--dependency` option to launch the *dependent* jobs
 - Use sbatch `--parsable` and command substitution 
   to obtain automatically the job ID for the "upstream" jobs 
+
+## Job chaining by recursive `sbatch` invocations 
 
 ## Workflow managers
 
@@ -55,7 +57,8 @@ What happens if a step in your workfow fails?
 What happens if some of your input data changes? 
 What steps do you need to run again?
 
-Tools like snakemake or nexflow 
+Tools like [snakemake](https://snakemake.readthedocs.io/en/stable/) 
+or [nextflow](https://www.nextflow.io/docs/latest/container.html)
 (but there are many others)
 might make your life easier
 in case of complex worflows.

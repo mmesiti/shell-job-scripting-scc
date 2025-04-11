@@ -72,24 +72,23 @@ general_best_practices.md
 bash/dealing_with_repetition.md
 bash/composability.md
 ssh/tips-and-tricks.md
-jupyter/text_manipulation
 bash/interactive_tips_and_tricks.md
 workflow-discussion_intermediate.md
-defensive_programming.md
-embarrassingly_parallel.md
 ```
 ```{toctree}
 :caption: Advanced 
 bash/the_manual.md
-bash/making_choices.md
+jupyter/control_flow
 bash/composability2.md
 bash/interactive_tips_and_tricks2.md
-workflow-discussion_intermediate.md
-embarrassingly_parallel_advanced.md
+defensive_programming.md
+jupyter/text_manipulation
 job_chaining.md
+embarrassingly_parallel.md
 ```
 ```{toctree}
 :caption: Extra 
+job_templates.md
 instructor_notes.md
 ```
 

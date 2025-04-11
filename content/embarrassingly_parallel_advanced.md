@@ -1,2 +1,0 @@
-# Embarrassingly Parallel: GNU parallel
-
