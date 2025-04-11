@@ -1,4 +1,4 @@
-# Composability - advanced 
+# More Bash features and their composability
 
 ```{objectives}
 Recognize and read advanced shell features
@@ -33,16 +33,16 @@ $ wc -l < myfile
 
 ### Process substitution: `<()` 
 
-  Create a temporary file 
-  containing the output (`stdout`)
-  of the list of commands
-  inside the brackets
+Create a temporary file 
+containing the output (`stdout`)
+of the list of commands
+inside the brackets
 
 ### Compound commands
-  Grouping a list commands together with `{  }`.
+Grouping a list commands together with `{  }`.
   
-  The exit code of the compound command 
-  is the one of the last command executed.
+The exit code of the compound command 
+is the one of the last command executed.
 
 ## Bash functions
 
@@ -75,3 +75,37 @@ Subshells instead *do* define a scope.
 
 ```
 
+## Arrays
+
+Arrays are a bash feature that allows to store a list of elements.
+
+They are generated with the syntax
+```bash
+A=( first_element
+    second_element
+    ...
+    )
+```
+
+The list of elements can be generated in various ways.
+
+
+As an example,
+we will now reate a variable named "outputfile" that is composed of 3 strings:
+
+1. Environment variable $LOGNAME
+2. Arbitrary string of 4 characters generated in subshell via: 
+  mktemp -u XXXX 
+3. First 2 characters of the current month (→ use „date“) using a bash array
+
+A possible solution reads:
+```bash
+array=($(date))
+month=${array[1]:0:2}
+
+declare -r outputfile="${LOGNAME}_$(mktemp -u XXXX)_${month}.log"
+echo ${outputfile}
+
+# Try changing output file
+outputfile="new"
+```

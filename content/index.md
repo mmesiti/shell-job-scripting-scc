@@ -39,13 +39,15 @@ to this repository
 in the upper right corner).
 ```
 
-## Setup to follow along
+## Setup to follow along and for the exercises
 
 You can clone this repository
 ```bash
 git clone https://github.com/mmesiti/shell-job-scripting-scc.git 
 ```
 and use the [examples](https://github.com/mmesiti/shell-job-scripting-scc/tree/main/examples) directory to follow along.
+
+The **job scripting exercises** and their solutions are in the [exercises](https://github.com/mmesiti/shell-job-scripting-scc/tree/main/exercises) directory.
 
 
 ## Sources and Inspiration
