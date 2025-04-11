@@ -1,0 +1,9 @@
+#!/bin/bash
+##################################################
+## Input file for Simple file generator for     ##
+## demonstrating batch jobs using $TMP          ##
+##################################################
+## ver.  : 2016-12-06, Robert Barthel, KIT, SCC
+
+## Number of files to be generated:
+9

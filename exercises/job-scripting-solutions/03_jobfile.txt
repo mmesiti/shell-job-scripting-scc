@@ -1,0 +1,8 @@
+sleep 10; echo 'Hello'; sleep 5
+sleep 10; echo 'World'; sleep 5
+sleep 10; echo 'today'; sleep 5
+sleep 10; echo 'it is'; sleep 5
+sleep 10; echo 'time'; sleep 5
+sleep 10; echo 'for'; sleep 5
+sleep 10; echo 'something'; sleep 5
+sleep 10; echo 'new'; sleep 5
