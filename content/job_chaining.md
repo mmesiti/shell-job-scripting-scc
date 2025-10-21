@@ -33,21 +33,6 @@ result_file="results/${name}.txt"
 (Adapted from [here](https://training.pages.sigma2.no/tutorials/independent-jobs-in-parallel/job-array.html))
 
 
-## Job chaining using SLURM dependencies
-
-Performing all the steps of a workflow 
-from scratch in a single slurm job 
-might waste resources if the steps differ 
-in the amount of resource needed.
-
-Jobs can be chained using slurm dependencies:
-
-- Use sbatch `--dependency` option to launch the *dependent* jobs
-- Use sbatch `--parsable` and command substitution 
-  to obtain automatically the job ID for the "upstream" jobs 
-
-## Job chaining by recursive `sbatch` invocations 
-
 ## Workflow managers
 
 If your workflow are sufficiently complicated,

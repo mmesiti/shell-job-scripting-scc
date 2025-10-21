@@ -18,9 +18,16 @@ Every process has 3 *streams* associated to it:
 - `stderr`: similar to `stdout`, but with messages that should be treated differently (e.g., error messages).
 
 
-### Clarification: stdin vs command arguments
+### Clarification: stdin vs command line arguments
+
+Commands can receive "information" in two different ways:
+
+- through command line arguments (e.g., the name of a file)
+- through *stdin*, the standard input stream
+
 Many commands will accept input from `stdin` 
-and use it as a *file*.
+and use that stream as a *file*,
+when no filename is passed as a command line argument.
 
 For example,
 ```
@@ -32,8 +39,10 @@ But the command
 ```
 wc -l 
 ```
-without an argument will wait for you to type in text,
-that is for input data on its `stdin` stream.
+without an argument will wait for you 
+to type in some text,
+that is,
+input data on its `stdin` stream:
 
 ```
 $ wc -l 
@@ -85,8 +94,8 @@ This message goes to STDOUT
 This message goes to STDERR instead
 ```
 ## Pipes
-If a program `stdin` can be
-the `stdout` of another program,
+If a program `stdout` can be
+the `stdin` of another program,
 we can connect them together 
 with a `|` character,
 called a *pipe*.
@@ -133,76 +142,27 @@ so better *pipe* it into the `less` command:
 env | less
 ```
 
-Variables can also be produced by commands, 
-using *command substitution*:
+## Yet another way to reuse the output of a command 
+
+With *command substitution*, 
+one can get the output of a command
+to create command line arguments:
+
+```bash
+find . -name "$(basename "$FILENAME")"
+```
+
+Variables can also be produced:
 ```bash
 FNAME="$(basename "$FILENAME")"
+echo "$FNAME"
 ```
 
 ```{tip}
 If you not not use spaces and special characters in your filenames,
 using double quotes `"..."` is not always necessary,
 and your life will be easier.
-
 ```
-
-
-## Subshells and `export`
-
-In order to define variables that are only visible to a subset of a program,
-we can use a subshell. We can create one with `( ...list of commands...)`:
-
-```bash
-$ ( 
-C=12
-echo $C
-    )
-12
-```
-The C variable is defined in a subshell and is not visible outside:
-```bash
-$ echo $C 
-
-```
-
-In a script, it is convenient to use a subshell
-if you need to change directory with `cd`.
-At the end of a subshell, 
-the execution will return automatically 
-to the previous directory.
-
-For interactive work,
-we can also create a subshell by invoking `bash`,
-and we can exit them with `CTRL-D` or the `exit` command.
-
-Note: variables defined in the parent shell
-will not be visible in child shells
-unless we export them.
-
-
-```{exercise} Variabes in a subshell
-
-Try this:
-```
-$ A=42
-$ (
-   echo $A
-)
-```
-What is the output? 
-Is it expected, even if A is not exported?
-
-Try this instead
-```
-$ A=42
-$ bash -c 'echo $A'
-```
-
-
-
-
-```
-
 
 
 

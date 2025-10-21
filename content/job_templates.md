@@ -3,7 +3,7 @@
 A collection of job templates
 showing how to use some particular feature.
 
-All examples courtesy of Robert Barthel.
+All examples originally written Robert Barthel from KIT/SCC/SCS.
 
 ## Dealing with walltime limits on your own terms 
 

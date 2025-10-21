@@ -71,22 +71,23 @@ motivation.md
 ```{toctree}
 :caption: Intermediate 
 general_best_practices.md
-bash/dealing_with_repetition.md
-bash/composability.md
-ssh/tips-and-tricks.md
-bash/interactive_tips_and_tricks.md
 workflow-discussion_intermediate.md
+bash/composability.md
+bash/dealing_with_repetition.md
+embarrassingly_parallel.md
+job_chaining.md
+bash/interactive_tips_and_tricks.md
+ssh/tips-and-tricks.md
 ```
 ```{toctree}
 :caption: Advanced 
 bash/the_manual.md
 jupyter/control_flow
 bash/composability2.md
+job_chaining2.md
 bash/interactive_tips_and_tricks2.md
 defensive_programming.md
 jupyter/text_manipulation
-job_chaining.md
-embarrassingly_parallel.md
 ```
 ```{toctree}
 :caption: Extra 

@@ -70,3 +70,7 @@ if (
             {"data-domain": "aaltoscicomp.github.io", "defer": "defer"},
         ),
     ]
+
+# from https://myst-nb.readthedocs.io/en/latest/computation/execute.html#exclude-notebooks-from-execution
+# since this notebook seems problematic on github actions
+nb_execution_excludepatterns = ["control_flow.ipynb"]

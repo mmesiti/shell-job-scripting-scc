@@ -3,8 +3,9 @@
 
 
 ```{objectives}
-- What does bash `set -xeu` mean?
+- How can I make my shell scripts more robust?
 - Check your code automatically for typical issues 
+- What does bash `set -xeu` mean?
 ```
 
 ## Debug and error checking
@@ -21,34 +22,6 @@
   by typing `help set`
   in the shell.
 
-### Debugging: `set -x`
-
-The `-x` option is handy to debug a script. 
-For example, it makes the shell print out 
-all commands and their arguments
-just before they are executed 
-(i.e., after all *expansions* have happened).
-
-### Error when using an unset variable: `set -u` 
-
-With this option,
-every time an unset variable is referenced,
-an error is raised:
-```bash
-$ set -u
-$ echo $my_unexisting_variable
-bash: my_unexisting_variable: unbound variable
-```
-
-If we want to use a default value when the variable is not set,
-we can use a special case of *parameter expansion*:
-```bash
-$ set -u
-$ echo ${my_unexisting_variable:-"nothing"}
-nothing
-```
-And in this case no error is thrown.
-
 ### Fail on error: `set -e`
 
 With other programming languages,
@@ -64,7 +37,7 @@ With `set -e`, you can make the shell stop
 if there is an error.
 
 
-```{exercise} Important Discussion: Unintended consequences
+`````{exercise} Important Discussion: Unintended consequences
 
 Using `set -e` might have unintented consequences:
 1. What if you set it in an interactive session, and there is an error?
@@ -74,7 +47,7 @@ Using `set -e` might have unintented consequences:
    For example, cleaning up a directory from intermediate results?  
    How to circumvent this issue and still get the benefit of `set -e`?
 
-```{solution}
+````{solution}
    1. If an error happens, 
       our shell will be terminated,
       and our connection to the cluster might be terminated.
@@ -95,10 +68,43 @@ Using `set -e` might have unintented consequences:
       ```
       In that case, only the subshell will be terminated,
       and the cleanup commands will run anyway.
+````
+`````
+
+### Error when using an undefined variable: `set -u` 
+
+With this option,
+every time an undefined variable is referenced,
+an error is raised:
+```bash
+$ set -u
+$ echo $my_unexisting_variable
+bash: my_unexisting_variable: unbound variable
 ```
 
+If we want to use a default value when the variable is not set,
+we can use a special case of *parameter expansion*:
+```bash
+$ set -u
+$ echo ${my_unexisting_variable:-"nothing"}
+nothing
+```
+And in this case no error is thrown.
 
-## Automatic check for common problems
+In conjunction with `set -e` ,
+this would also cause the script to abort
+if an unset variable is used.
+
+### Debugging: `set -x`
+
+The `-x` option is handy to debug a script. 
+For example, it makes the shell print out 
+all commands and their arguments
+just before they are executed 
+(i.e., after all *expansions* have happened).
+
+
+## Automatic check for common bad practices and antipatterns
 
 A tool that can do this for you is [shellcheck](https://www.shellcheck.net/).
 

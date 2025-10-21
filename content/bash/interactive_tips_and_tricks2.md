@@ -53,7 +53,9 @@ This has the disadvantage of requiring multiple log ins and can be tedious
   - change pane with `CTRL+B o`
   - help: `CTRL+B ?`
   - exit help: `q`
+
   Gotchas:
+
   - killed when you log off the node (unless *lingering* is enabled)
   - When there are multiple login nodes, 
     you might land on a different node where your session(s) 

@@ -15,15 +15,15 @@
 
 - It is a (simple form of a) program.
 
-- Typically, a bash script will 
-  call other programs
-  "orchestrate" their operations together,
-  provide them with data,
-  organize the data movements.
+- Typically, a bash script will act as a *driver*:
+  - call other programs
+  - "orchestrate" their operations together
+  - provide them with data
+  - organize the data movements.
 
 - The other programs will typically be written
   in languages that are more suitable to scientific computing,
-  but they can also be other bash scripts.
+  (but they can also be other bash scripts).
  
 
 ### Where do scripts come from?

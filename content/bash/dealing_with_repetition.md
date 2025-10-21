@@ -19,6 +19,7 @@ do
    ./process.sh "$filename"
 done
 ```
+
 What is happening here?
 1. `data/*.dat` is expanded to a list of file names
     via *globbing* or *pathname expansion*.  
@@ -29,23 +30,6 @@ What is happening here?
 2. The *variable* `filename` is assigned 
    one value from the list,
    for each time the loop body is executed
-
-## `xargs` instead of `for`
-
-If the loop body is a one-liner,
-an alternative is particulary convenient.
-
-Typically we use *first* the command to generate the list 
-we want to iterate on.  
-For example:
-```bash
-find data -name '*.dat'
-```
-We can use a *pipe* and the `xargs` command to
-
-```bash
-find data -name '*.dat' | xargs -I{} ./process.sh {}
-```
 
 ## Non integer parameter scans with `seq` 
 
