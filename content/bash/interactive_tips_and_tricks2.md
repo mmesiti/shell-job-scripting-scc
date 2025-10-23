@@ -46,13 +46,23 @@ This has the disadvantage of requiring multiple log ins and can be tedious
 
 `tmux` stands for Terminal Multiplexer.
   Usage:
+
   - start with `tmux` 
   - detach with `CTRL+B D` 
   - reattach with `tmux a`
-  - split with `CTRL+B %` or `CTRL+B "`
-  - change pane with `CTRL+B o`
+  - if you like working with different panes:
+
+    - split with `CTRL+B %` or `CTRL+B "`
+    - change pane with `CTRL+B o`
+
+  - if you like working with different windows:
+
+    - create new window with `CTRL+B c`
+    - change to window n. N with `CTRL+B N`
+
   - help: `CTRL+B ?`
-  - exit help: `q`
+
+    - exit help: `q`
 
   Gotchas:
 

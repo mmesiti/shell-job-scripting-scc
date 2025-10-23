@@ -75,23 +75,22 @@ workflow-discussion_intermediate.md
 bash/composability.md
 bash/dealing_with_repetition.md
 embarrassingly_parallel.md
-job_chaining.md
+slurm_arrays_and_workflows.md
 bash/interactive_tips_and_tricks.md
 ssh/tips-and-tricks.md
 ```
 ```{toctree}
 :caption: Advanced 
+job_examples.md
 bash/the_manual.md
 jupyter/control_flow
 bash/composability2.md
-job_chaining2.md
-bash/interactive_tips_and_tricks2.md
 defensive_programming.md
+bash/interactive_tips_and_tricks2.md
 jupyter/text_manipulation
 ```
 ```{toctree}
 :caption: Extra 
-job_templates.md
 instructor_notes.md
 ```
 

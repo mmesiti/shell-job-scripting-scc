@@ -1,10 +1,10 @@
+(composability-1)=
 # Composability
 
 ```{objectives}
 1. Save the output of a program to a file 
 2. Connect the output of a program to the input of another
 3. Use variables to store values
-4. Isolate parts of a script with subshells
 ```
 
 ```{admonition} To follow along

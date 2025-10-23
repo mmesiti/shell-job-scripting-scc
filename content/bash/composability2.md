@@ -1,7 +1,9 @@
 # More Bash features and their composability
 
 ```{objectives}
-Recognize and read advanced shell features
+- Recognize and read advanced shell features
+- Isolate parts of a script with subshells
+- Modularize and organize a script with functions
 
 ```
 
@@ -9,6 +11,11 @@ Recognize and read advanced shell features
 Please navigate to the `examples/composability` directory.
 ```
 
+This episode builds upon the 
+[composability episode from the Intermediate part](#composability),
+discussing more sofisticated 
+(and more niche)
+bash features.
 
 ## More streams and redirections
 
@@ -23,20 +30,48 @@ $ wc -l < myfile
 17
 ```
 
-
 ###  `stderr` into `stdout` or vice versa
 
 - `&>` can be used to redirect both streams
-- `1>&2` redirects `stdout` to `stderr`
-- `2>&1` does the opposite
+- `2>&1` redirects `stderr` to `stdout`
+- `1>&2` does the opposite
 
+Note: `2>&1`  (or )
+goes *after* any redirection to files with `>`,
+but *before*:
+
+```bash
+$ ./stream_example.sh > stdout_and_stderr 2>&1
+$ ./stream_example.sh 2>&1 | wc -l
+2
+```
 
 ### Process substitution: `<()` 
 
 Create a temporary file 
 containing the output (`stdout`)
 of the list of commands
-inside the brackets
+inside the brackets.
+
+`````{exercise} Check the difference in content between two directories
+
+In the current directory (`examples/composability`) 
+there are two files named `file1` and `file2`.
+How can you compare 
+only the first 3 lines of both files
+with the `diff` command?
+````{solution}
+```bash
+$ diff <(head -n 3 file1) <(head -n 3 file2)
+3c3
+< the lazy dog.
+---
+> the white dog.
+```
+````
+
+
+````` 
 
 ### Compound commands
 Grouping a list commands together with `{  }`.
@@ -44,6 +79,7 @@ Grouping a list commands together with `{  }`.
 The exit code of the compound command 
 is the one of the last command executed.
 
+(subshells)=
 ## Subshells and `export`
 
 In order to define variables that are only visible to a subset of a program,
@@ -129,7 +165,7 @@ And what is different when `A` is instead exported?
      ```
   ````
 `````
-
+(functions)=
 ## Bash functions
 
 Functions can be created 
@@ -170,23 +206,52 @@ Arrays are a bash feature that allows to store a list of elements.
 
 They are generated with the syntax
 ```bash
-A=( first_element
-    second_element
-    ...
-    )
+$ A=(first_element
+   second_element
+   ...
+   )
 ```
 
 The list of elements can be generated in various ways.
 
+An element of the array (e.g., the second) 
+can be accessed with the syntax
 
-As an example,
-we will now reate a variable named "outputfile" that is composed of 3 strings:
+```bash
+$ echo "${A[1]}"
+second
+```
+
+and the whole array can be accessed, 
+for example in a `for` loop, in this way:
+
+```bash
+$ for element in "${A[@]}"
+> do
+>     echo "$element"
+> done
+```
+
+```{note}
+Note the similarity
+and differences
+between the syntax for arrays
+and the syntax for subshells...
+```
+
+
+`````{exercise} Arrays and command substitution
+Create a variable named "outputfile" 
+(which might represent the name of a file used for output in a script)
+that is composed of 3 strings:
 
 1. Environment variable $LOGNAME
 2. Arbitrary string of 4 characters generated in subshell via: 
-  mktemp -u XXXX 
-3. First 2 characters of the current month (→ use „date“) using a bash array
+   `mktemp -u XXXX`
+3. First 2 characters of the current month (→ use the `date` command) 
+   using a bash array
 
+````{solution}
 A possible solution reads:
 ```bash
 array=($(date))
@@ -194,11 +259,14 @@ month=${array[1]:0:2}
 
 declare -r outputfile="${LOGNAME}_$(mktemp -u XXXX)_${month}.log"
 echo ${outputfile}
-
-# Try changing output file
+```
+If we try changing output file we do get an error:
+```bash
 outputfile="new"
 ```
+````
 
+`````
 ## Dealing with repetition: pipe into `xargs` instead of `for`
 
 If the loop body is a one-liner,
