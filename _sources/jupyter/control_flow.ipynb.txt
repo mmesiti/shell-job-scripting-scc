@@ -1,0 +1,386 @@
+{
+ "cells": [
+  {
+   "cell_type": "markdown",
+   "id": "15e09214-1fc1-4af7-ba08-96855e74654b",
+   "metadata": {},
+   "source": [
+    "# Control flow in Bash: `if`, `while` and `trap`s\n",
+    "\n",
+    "```{objectives}\n",
+    "1. Be able to perform simple tests and influence execution\n",
+    "2. Keep control even when your script is sent a signal\n",
+    "```"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "id": "ef62b700-ffe6-4f8d-abd9-056a891c2cce",
+   "metadata": {},
+   "source": [
+    "```{admonition} To follow along\n",
+    "\n",
+    "Please navigate to the `example/control_flow` directory.\n",
+    "```"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 1,
+   "id": "5e5f9573-8b26-4678-abd4-e9de8c30a27f",
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "cd ../../examples/control_flow"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "id": "f6817d53-682f-4700-839b-ced93113b4da",
+   "metadata": {},
+   "source": [
+    "## Control flow statements\n",
+    "\n",
+    "The most important control flow statements in Bash are \n",
+    "- `if`/`else` blocks\n",
+    "- `while` loops\n",
+    "\n",
+    "They are used in conjunction with anything that has a *return status*.\n",
+    "\n",
+    "In particular:\n",
+    "- the `test` command,  equivalent to `[ ]`, or with the command `[[ ]]` (a Bash extension).\n",
+    "- Arithmetic comparisons using `(( <condition> ))`\n",
+    "\n",
+    "But they can be used with any process that terminates.\n",
+    "A return status equal to `0` means \"True\", and all other values mean \"False\", a `!` negates the value of an expression. \n",
+    "\n",
+    "```{exercise} Conditional expressions\n",
+    "\n",
+    "Search the Bash manual for the section on `CONDITIONAL EXPRESSIONS`.\n",
+    "\n",
+    "1. What expression can be used to test if a file or directory already exists?\n",
+    "2. How to compare two numbers?\n",
+    "\n",
+    "```{solution}\n",
+    "1. `[ -a a/path/ ]` will check if `a/path/` exists\n",
+    "2. `[ $N1 -lt $N2 ]` will check if $N1 is **l**ess **t**han $N2. There are 5 other related checks. `ARIHTMETIC EVALUATION` can also be used in this case: `(( N1 < N2 ))`\n",
+    "```\n",
+    "\n",
+    "```{tip}\n",
+    "Control expressions have `exit` statuses\n",
+    "```\n",
+    "\n",
+    "Note: Spaces around the square brackets are important!\n",
+    "\n",
+    "\n",
+    "## `if`-`else` statements\n",
+    "\n",
+    "We can check if a file exists, and if not, we can create it:"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 2,
+   "id": "1bde4f35-1405-4489-ae05-08004ad09508",
+   "metadata": {},
+   "outputs": [
+    {
+     "name": "stdout",
+     "output_type": "stream",
+     "text": [
+      "file exists already\n"
+     ]
+    }
+   ],
+   "source": [
+    "if ! [ -f myfile.txt ]\n",
+    "then\n",
+    "   touch myfile.txt\n",
+    "   echo \"file created now\"\n",
+    "else\n",
+    "   echo \"file exists already\"\n",
+    "fi\n"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "id": "7523b090-6c68-493d-871d-743083058a76",
+   "metadata": {},
+   "source": [
+    "## `&&`, `||` and `!`"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "id": "55a4ab41-d019-4788-a68c-78ac9222fcfb",
+   "metadata": {},
+   "source": [
+    "`&&`, `||` and `!` are boolean logic operators that can be used to combine commands in a *list*, while at the same time combining their return codes.\n",
+    "\n",
+    "Interestingly:\n",
+    "- A list of commands joined by `&&` will run only until one of them fails.\n",
+    "- A list of commands joined by `||` will run only until one of them succeeds.\n",
+    "\n",
+    "If the body of the `if` statements are short, `&&` and `||` can be used more conveniently to simulate an `if` statement (but perhaps in a less readable way):"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 3,
+   "id": "bc4162f0-d198-4516-95a4-cd78663b80a6",
+   "metadata": {},
+   "outputs": [
+    {
+     "name": "stdout",
+     "output_type": "stream",
+     "text": [
+      "file exists already\n"
+     ]
+    }
+   ],
+   "source": [
+    "! [ -f myfile.txt ] && { touch myfile.txt; echo \"file created now\"; } || echo \"file exists already\""
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "id": "0f8ef00f-2afe-4cba-ba06-f1dbbbee6dd1",
+   "metadata": {},
+   "source": [
+    "In this case, we have collected some steps together in braces `{}`.\n",
+    "\n",
+    "`````{exercise} Be precise!\n",
+    "Actually, \n",
+    "````bash\n",
+    "condition && then_action || else_action\n",
+    "````\n",
+    "is not a precise translation of \n",
+    "````bash\n",
+    "if condition\n",
+    "then then_action\n",
+    "else else_action\n",
+    "fi\n",
+    "````\n",
+    "\n",
+    "Can you figure out the case where the two expressions behave differently? How can you fix the first expression so that it behaves more precisely like the second one?\n",
+    "\n",
+    "````{solution}\n",
+    "When the `condition` evaluates to `true`, but the `then_action` evaluates to `false`, then the `else_action` will be executed anyway.\n",
+    "\n",
+    "This more complex expression behaves more precisely like an `if` statement:\n",
+    "```bash\n",
+    "condition && { then_action || true ; } || else_action\n",
+    "```\n",
+    "````\n",
+    "`````"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "id": "e6be4e33-eeb9-4d72-b0e8-c221a2f530dd",
+   "metadata": {},
+   "source": [
+    "## While loops\n",
+    "\n",
+    "The syntax is similar to for loops, but the header is different:"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 4,
+   "id": "9b1b6ce8-4beb-4c78-9341-5dcd1ec3f7a2",
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "while ! [ -f myfile.txt ]\n",
+    "do\n",
+    "   echo \"File does not yet exist\"\n",
+    "   # waiting a little before repeating the loop\n",
+    "   sleep 5\n",
+    "done"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "id": "2171d612-b9ae-4a87-82c5-1d21c6903872",
+   "metadata": {},
+   "source": [
+    "`````{exercise} Until loops\n",
+    "The loop above could be rewritten more conveniently using a `until` loop.\n",
+    "What should be changed?\n",
+    "\n",
+    "   ````{solution}\n",
+    "\n",
+    "      ```\n",
+    "      until [ -f myfile.txt ]\n",
+    "      do\n",
+    "          echo \"File does not yet exist\"\n",
+    "          # waiting a little \n",
+    "          sleep 2\n",
+    "      done\n",
+    "      ```\n",
+    "\n",
+    "   ````   \n",
+    "     \n",
+    "`````"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "id": "68ec82da-3986-4c0f-b876-559a6172d831",
+   "metadata": {},
+   "source": [
+    "## Dealing with signals: traps\n",
+    "\n",
+    "When your script receives a signal that it does know how to handle,\n",
+    "by default it terminates.\n",
+    "\n",
+    "With the `trap` command, it is possible to catch and handle some of the signals,\n",
+    "typically before aborting, for example cleaning up.\n",
+    "\n",
+    "```{note}\n",
+    "This example is contained in a separate script \n",
+    "because it is better to run it in a separate subshell,\n",
+    "and it is easier if this is done by running the script.\n",
+    "```"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 5,
+   "id": "19142bc0-6e97-4458-8190-7baf7869bdfc",
+   "metadata": {},
+   "outputs": [
+    {
+     "name": "stdout",
+     "output_type": "stream",
+     "text": [
+      "\n",
+      "cleanup(){\n",
+      "  echo \"Cleanup before interrupt and exit\"\n",
+      "  exit 0\n",
+      "}\n",
+      "\n",
+      "(\n",
+      "trap \"cleanup\" SIGINT\n",
+      "\n",
+      "while true\n",
+      "do\n",
+      "  sleep ${SLEEP_INTERVAL:-1}\n",
+      "done\n",
+      ") & \n",
+      "\n",
+      "sleep 5\n",
+      "kill -SIGINT %1 # Sending the signal to the process in the background.\n",
+      "echo \"Sent SIGINT at $SECONDS seconds\"\n",
+      "wait\n",
+      "echo \"Subprocess terminated at $SECONDS seconds\"\n",
+      "\n"
+     ]
+    }
+   ],
+   "source": [
+    "cat trap-example.sh "
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "id": "8c37d47a-c938-430a-8923-7a9197ba6025",
+   "metadata": {},
+   "source": [
+    "(signals-and-traps-caveat)=\n",
+    "### When is a trap executed?\n",
+    "\n",
+    "Notice that the function set with the `trap` command\n",
+    "can be executed only when the bash shell \n",
+    "has control of the execution,\n",
+    "i.e. between commands invocations in the shell.\n",
+    "\n",
+    "The default behaviour of this script is the following:"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 6,
+   "id": "f6f157ec-6ec1-417d-8e01-1644584b1f2e",
+   "metadata": {},
+   "outputs": [
+    {
+     "name": "stdout",
+     "output_type": "stream",
+     "text": [
+      "Sent SIGINT at 5 seconds\n",
+      "Cleanup before interrupt and exit\n",
+      "Subprocess terminated at 5 seconds\n"
+     ]
+    }
+   ],
+   "source": [
+    "unset SLEEP_INTERVAL\n",
+    "bash ./trap-example.sh"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "id": "4e1b61bb-eb1d-4f02-997b-e1847d30234b",
+   "metadata": {},
+   "source": [
+    "Thanks to the fact that the shell is waking up every second,\n",
+    "the signal handler defined by `trap` can be invoked timely.\n",
+    "\n",
+    "But if we set `SLEEP_INTERVAL` to, for example, 10 seconds,\n",
+    "then the signal handler will not be invoked when the signal is sent,\n",
+    "but only later, at the first occasion when the shell takes control:"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 7,
+   "id": "d0741017-f807-4afa-b1d0-f448d39e1f72",
+   "metadata": {},
+   "outputs": [
+    {
+     "name": "stdout",
+     "output_type": "stream",
+     "text": [
+      "Sent SIGINT at 5 seconds\n",
+      "Cleanup before interrupt and exit\n",
+      "Subprocess terminated at 10 seconds\n"
+     ]
+    }
+   ],
+   "source": [
+    "export SLEEP_INTERVAL=10\n",
+    "bash ./trap-example.sh"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "id": "dee6c939-26fd-4d9f-b275-9a45e88fbc27",
+   "metadata": {},
+   "source": [
+    "```{note}\n",
+    "The `trap` mechanism, \n",
+    "together with the `--signal` option for `sbatch`,\n",
+    "can be used to trigger a controlled termination of a slurm job.\n",
+    "See [this example](#signal-and-traps) \n",
+    "```"
+   ]
+  }
+ ],
+ "metadata": {
+  "kernelspec": {
+   "display_name": "Bash",
+   "language": "bash",
+   "name": "bash"
+  },
+  "language_info": {
+   "codemirror_mode": "shell",
+   "file_extension": ".sh",
+   "mimetype": "text/x-sh",
+   "name": "bash"
+  }
+ },
+ "nbformat": 4,
+ "nbformat_minor": 5
+}

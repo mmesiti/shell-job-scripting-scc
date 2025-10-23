@@ -1,0 +1,500 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Control flow in Bash: if, while and traps &mdash; SCC/SCS Shell And Job Scripting  documentation</title>
+      <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=b86133f3" />
+      <link rel="stylesheet" type="text/css" href="../_static/css/theme.css?v=e59714d7" />
+      <link rel="stylesheet" type="text/css" href="../_static/mystnb.8ecb98da25f57f5357bf6f572d296f466b2cfe2517ffebfabe82451661e28f02.css" />
+      <link rel="stylesheet" type="text/css" href="../_static/copybutton.css?v=76b2166b" />
+      <link rel="stylesheet" type="text/css" href="../_static/togglebutton.css?v=13237357" />
+      <link rel="stylesheet" type="text/css" href="../_static/sphinx_lesson.css?v=e9df6548" />
+      <link rel="stylesheet" type="text/css" href="../_static/term_role_formatting.css?v=4194e21c" />
+      <link rel="stylesheet" type="text/css" href="../_static/sphinx_rtd_theme_ext_color_contrast.css?v=8e8ea19f" />
+
+  
+      <script src="../_static/jquery.js?v=5d32c60e"></script>
+      <script src="../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="../_static/documentation_options.js?v=5929fcd5"></script>
+      <script src="../_static/doctools.js?v=9a2dae69"></script>
+      <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+      <script src="../_static/clipboard.min.js?v=a7894cd8"></script>
+      <script src="../_static/copybutton.js?v=f281be69"></script>
+      <script src="../_static/minipres.js?v=a0d29692"></script>
+      <script>let toggleHintShow = 'Click to show';</script>
+      <script>let toggleHintHide = 'Click to hide';</script>
+      <script>let toggleOpenOnPrint = 'true';</script>
+      <script src="../_static/togglebutton.js?v=4a39c7ea"></script>
+      <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+      <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script src="../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="More Bash features and their composability" href="../bash/composability2.html" />
+    <link rel="prev" title="Understanding the Bash manual" href="../bash/the_manual.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../index.html" class="icon icon-home">
+            SCC/SCS Shell And Job Scripting
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Motivation</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../motivation.html">Why should one learn the shell?</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../motivation.html#advantages">Advantages</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../motivation.html#limitations">Limitations</a></li>
+</ul>
+</li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Intermediate</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../general_best_practices.html">Job Scripting and best practices</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../general_best_practices.html#what-is-a-bash-script">What is a Bash script?</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../general_best_practices.html#where-do-scripts-come-from">Where do scripts come from?</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../general_best_practices.html#structure-of-a-bash-script-best-practices">Structure of a Bash script: best practices</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../general_best_practices.html#adapt-it-to-for-use-with-sbatch">Adapt it to for use with sbatch</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../workflow-discussion_intermediate.html">Workflow discussion</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../bash/composability.html">Composability</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../bash/composability.html#streams-and-redirections">Streams and redirections</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../bash/composability.html#clarification-stdin-vs-command-line-arguments">Clarification: stdin vs command line arguments</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../bash/composability.html#pipes">Pipes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../bash/composability.html#variables">Variables</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../bash/composability.html#yet-another-way-to-reuse-the-output-of-a-command">Yet another way to reuse the output of a command</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../bash/dealing_with_repetition.html">Dealing with repetition</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../bash/dealing_with_repetition.html#iterating-on-multiple-files-directories-with-for-loops">Iterating on multiple files/directories with <code class="docutils literal notranslate"><span class="pre">for</span></code> loops</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../bash/dealing_with_repetition.html#non-integer-parameter-scans-with-seq">Non integer parameter scans with <code class="docutils literal notranslate"><span class="pre">seq</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../embarrassingly_parallel.html">Simple Parallelism patterns in the shell</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../embarrassingly_parallel.html#tools-for-embarrassingly-parallel-workloads">Tools for embarrassingly Parallel Workloads</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../embarrassingly_parallel.html#parbatch">Parbatch</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../embarrassingly_parallel.html#similar-projects">Similar Projects</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../slurm_arrays_and_workflows.html">SLURM Workflows</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../slurm_arrays_and_workflows.html#repeating-jobs-with-job-arrays">Repeating jobs with job arrays</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../slurm_arrays_and_workflows.html#workflow-managers">Workflow managers</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../bash/interactive_tips_and_tricks.html">Tips and Tricks for interactive use</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../ssh/tips-and-tricks.html">SSH ergonomics</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../ssh/tips-and-tricks.html#the-ssh-config-file">The <code class="docutils literal notranslate"><span class="pre">.ssh/config</span></code> file</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../ssh/tips-and-tricks.html#ssh-keys">SSH keys</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../ssh/tips-and-tricks.html#generating-a-ssh-keypair-and-registering-it">Generating a ssh keypair and registering it</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../ssh/tips-and-tricks.html#ssh-agent"><code class="docutils literal notranslate"><span class="pre">ssh-agent</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="../ssh/tips-and-tricks.html#security-on-hpc-is-important">Security on HPC is important!</a></li>
+</ul>
+</li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Advanced</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../job_examples.html">Examples of job scripts</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../job_examples.html#dealing-with-walltime-limits-on-your-own-terms">Dealing with walltime limits on your own terms</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../job_examples.html#job-chaining-using-recursive-sbatch">Job chaining using recursive <code class="docutils literal notranslate"><span class="pre">sbatch</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="../job_examples.html#setting-dependencies-between-jobs-using-slurm">Setting dependencies between jobs using Slurm</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../job_examples.html#an-excerpt-of-a-job-using-a-local-private-filesystem">An excerpt of a job using a local/private FileSystem</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../bash/the_manual.html">Understanding the Bash manual</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Control flow in Bash: <code class="docutils literal notranslate"><span class="pre">if</span></code>, <code class="docutils literal notranslate"><span class="pre">while</span></code> and <code class="docutils literal notranslate"><span class="pre">trap</span></code>s</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#control-flow-statements">Control flow statements</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#if-else-statements"><code class="docutils literal notranslate"><span class="pre">if</span></code>-<code class="docutils literal notranslate"><span class="pre">else</span></code> statements</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#and"><code class="docutils literal notranslate"><span class="pre">&amp;&amp;</span></code>, <code class="docutils literal notranslate"><span class="pre">||</span></code> and <code class="docutils literal notranslate"><span class="pre">!</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#while-loops">While loops</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#dealing-with-signals-traps">Dealing with signals: traps</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#when-is-a-trap-executed">When is a trap executed?</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../bash/composability2.html">More Bash features and their composability</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../bash/composability2.html#more-streams-and-redirections">More streams and redirections</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../bash/composability2.html#use-a-file-as-stdin-for-a-process">Use a file as <code class="docutils literal notranslate"><span class="pre">stdin</span></code> for  a process: <code class="docutils literal notranslate"><span class="pre">&lt;</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="../bash/composability2.html#stderr-into-stdout-or-vice-versa"><code class="docutils literal notranslate"><span class="pre">stderr</span></code> into <code class="docutils literal notranslate"><span class="pre">stdout</span></code> or vice versa</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../bash/composability2.html#process-substitution">Process substitution: <code class="docutils literal notranslate"><span class="pre">&lt;()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="../bash/composability2.html#compound-commands">Compound commands</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../bash/composability2.html#subshells-and-export">Subshells and <code class="docutils literal notranslate"><span class="pre">export</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="../bash/composability2.html#bash-functions">Bash functions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../bash/composability2.html#arrays">Arrays</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../bash/composability2.html#dealing-with-repetition-pipe-into-xargs-instead-of-for">Dealing with repetition: pipe into <code class="docutils literal notranslate"><span class="pre">xargs</span></code> instead of <code class="docutils literal notranslate"><span class="pre">for</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../defensive_programming.html">Defensive programming and debugging</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../defensive_programming.html#debug-and-error-checking">Debug and error checking</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../defensive_programming.html#fail-on-error-set-e">Fail on error: <code class="docutils literal notranslate"><span class="pre">set</span> <span class="pre">-e</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="../defensive_programming.html#error-when-using-an-undefined-variable-set-u">Error when using an undefined variable: <code class="docutils literal notranslate"><span class="pre">set</span> <span class="pre">-u</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="../defensive_programming.html#debugging-set-x">Debugging: <code class="docutils literal notranslate"><span class="pre">set</span> <span class="pre">-x</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../defensive_programming.html#automatic-check-for-common-bad-practices-and-antipatterns">Automatic check for common bad practices and antipatterns</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../bash/interactive_tips_and_tricks2.html">Tips and Tricks for interactive use</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../bash/interactive_tips_and_tricks2.html#multitasking-et-similia">Multitasking <em>et similia</em></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../bash/interactive_tips_and_tricks2.html#using-multiple-applications-at-the-same-time">Using multiple applications at the same time</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../bash/interactive_tips_and_tricks2.html#alternative-tmux">Alternative: <code class="docutils literal notranslate"><span class="pre">tmux</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="text_manipulation.html">Unix tools for manipulation, exploration and monitoring of text files</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="text_manipulation.html#vertical-text-manipulation">“Vertical” text manipulation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="text_manipulation.html#horizontal-manipulations">Horizontal Manipulations</a></li>
+<li class="toctree-l2"><a class="reference internal" href="text_manipulation.html#when-cut-does-not-cut-it-awk">When <code class="docutils literal notranslate"><span class="pre">cut</span></code> does not cut it: <code class="docutils literal notranslate"><span class="pre">awk</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="text_manipulation.html#bulk-text-manipulation-with-sed">Bulk text manipulation with <code class="docutils literal notranslate"><span class="pre">sed</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="text_manipulation.html#following-a-running-program">Following a running program</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="text_manipulation.html#the-tee-command">The <code class="docutils literal notranslate"><span class="pre">tee</span></code> command</a></li>
+<li class="toctree-l3"><a class="reference internal" href="text_manipulation.html#the-tail-f-command">The <code class="docutils literal notranslate"><span class="pre">tail</span> <span class="pre">-f</span></code> command</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Extra</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../instructor_notes.html">Instructor notes</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../instructor_notes.html#rationale">Rationale</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../instructor_notes.html#known-issues">Known issues</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../instructor_notes.html#schedule">Schedule</a></li>
+</ul>
+</li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">SCC/SCS Shell And Job Scripting</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../index.html" class="icon icon-home" aria-label="Home"></a></li>
+      <li class="breadcrumb-item active">Control flow in Bash: <code class="docutils literal notranslate"><span class="pre">if</span></code>, <code class="docutils literal notranslate"><span class="pre">while</span></code> and <code class="docutils literal notranslate"><span class="pre">trap</span></code>s</li>
+      <li class="wy-breadcrumbs-aside">
+              <a href="https://github.com/mmesiti/shell-job-scripting-scc/blob/main/content/jupyter/control_flow.ipynb" class="fa fa-github"> Edit on GitHub</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="control-flow-in-bash-if-while-and-traps">
+<h1>Control flow in Bash: <code class="docutils literal notranslate"><span class="pre">if</span></code>, <code class="docutils literal notranslate"><span class="pre">while</span></code> and <code class="docutils literal notranslate"><span class="pre">trap</span></code>s<a class="headerlink" href="#control-flow-in-bash-if-while-and-traps" title="Link to this heading"></a></h1>
+<div class="admonition-objectives objectives admonition" id="objectives-0">
+<p class="admonition-title">Objectives</p>
+<ol class="arabic simple">
+<li><p>Be able to perform simple tests and influence execution</p></li>
+<li><p>Keep control even when your script is sent a signal</p></li>
+</ol>
+</div>
+<div class="admonition-to-follow-along admonition">
+<p class="admonition-title">To follow along</p>
+<p>Please navigate to the <code class="docutils literal notranslate"><span class="pre">example/control_flow</span></code> directory.</p>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="nb">cd</span><span class="w"> </span>../../examples/control_flow
+</pre></div>
+</div>
+</div>
+</div>
+<section id="control-flow-statements">
+<h2>Control flow statements<a class="headerlink" href="#control-flow-statements" title="Link to this heading"></a></h2>
+<p>The most important control flow statements in Bash are</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">if</span></code>/<code class="docutils literal notranslate"><span class="pre">else</span></code> blocks</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">while</span></code> loops</p></li>
+</ul>
+<p>They are used in conjunction with anything that has a <em>return status</em>.</p>
+<p>In particular:</p>
+<ul class="simple">
+<li><p>the <code class="docutils literal notranslate"><span class="pre">test</span></code> command,  equivalent to <code class="docutils literal notranslate"><span class="pre">[</span> <span class="pre">]</span></code>, or with the command <code class="docutils literal notranslate"><span class="pre">[[</span> <span class="pre">]]</span></code> (a Bash extension).</p></li>
+<li><p>Arithmetic comparisons using <code class="docutils literal notranslate"><span class="pre">((</span> <span class="pre">&lt;condition&gt;</span> <span class="pre">))</span></code></p></li>
+</ul>
+<p>But they can be used with any process that terminates.
+A return status equal to <code class="docutils literal notranslate"><span class="pre">0</span></code> means “True”, and all other values mean “False”, a <code class="docutils literal notranslate"><span class="pre">!</span></code> negates the value of an expression.</p>
+<div class="admonition-conditional-expressions exercise important admonition" id="exercise-0">
+<p class="admonition-title">Conditional expressions</p>
+<p>Search the Bash manual for the section on <code class="docutils literal notranslate"><span class="pre">CONDITIONAL</span> <span class="pre">EXPRESSIONS</span></code>.</p>
+<ol class="arabic simple">
+<li><p>What expression can be used to test if a file or directory already exists?</p></li>
+<li><p>How to compare two numbers?</p></li>
+</ol>
+<div class="admonition-solution solution important dropdown admonition" id="solution-0">
+<p class="admonition-title">Solution</p>
+<ol class="arabic simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">[</span> <span class="pre">-a</span> <span class="pre">a/path/</span> <span class="pre">]</span></code> will check if <code class="docutils literal notranslate"><span class="pre">a/path/</span></code> exists</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">[</span> <span class="pre">$N1</span> <span class="pre">-lt</span> <span class="pre">$N2</span> <span class="pre">]</span></code> will check if $N1 is <strong>l</strong>ess <strong>t</strong>han $N2. There are 5 other related checks. <code class="docutils literal notranslate"><span class="pre">ARIHTMETIC</span> <span class="pre">EVALUATION</span></code> can also be used in this case: <code class="docutils literal notranslate"><span class="pre">((</span> <span class="pre">N1</span> <span class="pre">&lt;</span> <span class="pre">N2</span> <span class="pre">))</span></code></p></li>
+</ol>
+</div>
+</div>
+<div class="admonition tip">
+<p class="admonition-title">Tip</p>
+<p>Control expressions have <code class="docutils literal notranslate"><span class="pre">exit</span></code> statuses</p>
+</div>
+<p>Note: Spaces around the square brackets are important!</p>
+</section>
+<section id="if-else-statements">
+<h2><code class="docutils literal notranslate"><span class="pre">if</span></code>-<code class="docutils literal notranslate"><span class="pre">else</span></code> statements<a class="headerlink" href="#if-else-statements" title="Link to this heading"></a></h2>
+<p>We can check if a file exists, and if not, we can create it:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="k">if</span><span class="w"> </span>!<span class="w"> </span><span class="o">[</span><span class="w"> </span>-f<span class="w"> </span>myfile.txt<span class="w"> </span><span class="o">]</span>
+<span class="k">then</span>
+<span class="w">   </span>touch<span class="w"> </span>myfile.txt
+<span class="w">   </span><span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;file created now&quot;</span>
+<span class="k">else</span>
+<span class="w">   </span><span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;file exists already&quot;</span>
+<span class="k">fi</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>file exists already
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="and">
+<h2><code class="docutils literal notranslate"><span class="pre">&amp;&amp;</span></code>, <code class="docutils literal notranslate"><span class="pre">||</span></code> and <code class="docutils literal notranslate"><span class="pre">!</span></code><a class="headerlink" href="#and" title="Link to this heading"></a></h2>
+<p><code class="docutils literal notranslate"><span class="pre">&amp;&amp;</span></code>, <code class="docutils literal notranslate"><span class="pre">||</span></code> and <code class="docutils literal notranslate"><span class="pre">!</span></code> are boolean logic operators that can be used to combine commands in a <em>list</em>, while at the same time combining their return codes.</p>
+<p>Interestingly:</p>
+<ul class="simple">
+<li><p>A list of commands joined by <code class="docutils literal notranslate"><span class="pre">&amp;&amp;</span></code> will run only until one of them fails.</p></li>
+<li><p>A list of commands joined by <code class="docutils literal notranslate"><span class="pre">||</span></code> will run only until one of them succeeds.</p></li>
+</ul>
+<p>If the body of the <code class="docutils literal notranslate"><span class="pre">if</span></code> statements are short, <code class="docutils literal notranslate"><span class="pre">&amp;&amp;</span></code> and <code class="docutils literal notranslate"><span class="pre">||</span></code> can be used more conveniently to simulate an <code class="docutils literal notranslate"><span class="pre">if</span></code> statement (but perhaps in a less readable way):</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>!<span class="w"> </span><span class="o">[</span><span class="w"> </span>-f<span class="w"> </span>myfile.txt<span class="w"> </span><span class="o">]</span><span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span><span class="o">{</span><span class="w"> </span>touch<span class="w"> </span>myfile.txt<span class="p">;</span><span class="w"> </span><span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;file created now&quot;</span><span class="p">;</span><span class="w"> </span><span class="o">}</span><span class="w"> </span><span class="o">||</span><span class="w"> </span><span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;file exists already&quot;</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>file exists already
+</pre></div>
+</div>
+</div>
+</div>
+<p>In this case, we have collected some steps together in braces <code class="docutils literal notranslate"><span class="pre">{}</span></code>.</p>
+<div class="admonition-be-precise exercise important admonition" id="exercise-1">
+<p class="admonition-title">Be precise!</p>
+<p>Actually,</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>condition<span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span>then_action<span class="w"> </span><span class="o">||</span><span class="w"> </span>else_action
+</pre></div>
+</div>
+<p>is not a precise translation of</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="k">if</span><span class="w"> </span>condition
+<span class="k">then</span><span class="w"> </span>then_action
+<span class="k">else</span><span class="w"> </span>else_action
+<span class="k">fi</span>
+</pre></div>
+</div>
+<p>Can you figure out the case where the two expressions behave differently? How can you fix the first expression so that it behaves more precisely like the second one?</p>
+<div class="admonition-solution solution important dropdown admonition" id="solution-1">
+<p class="admonition-title">Solution</p>
+<p>When the <code class="docutils literal notranslate"><span class="pre">condition</span></code> evaluates to <code class="docutils literal notranslate"><span class="pre">true</span></code>, but the <code class="docutils literal notranslate"><span class="pre">then_action</span></code> evaluates to <code class="docutils literal notranslate"><span class="pre">false</span></code>, then the <code class="docutils literal notranslate"><span class="pre">else_action</span></code> will be executed anyway.</p>
+<p>This more complex expression behaves more precisely like an <code class="docutils literal notranslate"><span class="pre">if</span></code> statement:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>condition<span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span><span class="o">{</span><span class="w"> </span>then_action<span class="w"> </span><span class="o">||</span><span class="w"> </span><span class="nb">true</span><span class="w"> </span><span class="p">;</span><span class="w"> </span><span class="o">}</span><span class="w"> </span><span class="o">||</span><span class="w"> </span>else_action
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="while-loops">
+<h2>While loops<a class="headerlink" href="#while-loops" title="Link to this heading"></a></h2>
+<p>The syntax is similar to for loops, but the header is different:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="k">while</span><span class="w"> </span>!<span class="w"> </span><span class="o">[</span><span class="w"> </span>-f<span class="w"> </span>myfile.txt<span class="w"> </span><span class="o">]</span>
+<span class="k">do</span>
+<span class="w">   </span><span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;File does not yet exist&quot;</span>
+<span class="w">   </span><span class="c1"># waiting a little before repeating the loop</span>
+<span class="w">   </span>sleep<span class="w"> </span><span class="m">5</span>
+<span class="k">done</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="admonition-until-loops exercise important admonition" id="exercise-2">
+<p class="admonition-title">Until loops</p>
+<p>The loop above could be rewritten more conveniently using a <code class="docutils literal notranslate"><span class="pre">until</span></code> loop.
+What should be changed?</p>
+<div class="admonition-solution solution important dropdown admonition" id="solution-2">
+<p class="admonition-title">Solution</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">until</span> <span class="p">[</span> <span class="o">-</span><span class="n">f</span> <span class="n">myfile</span><span class="o">.</span><span class="n">txt</span> <span class="p">]</span>
+<span class="n">do</span>
+    <span class="n">echo</span> <span class="s2">&quot;File does not yet exist&quot;</span>
+    <span class="c1"># waiting a little </span>
+    <span class="n">sleep</span> <span class="mi">2</span>
+<span class="n">done</span>
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="dealing-with-signals-traps">
+<h2>Dealing with signals: traps<a class="headerlink" href="#dealing-with-signals-traps" title="Link to this heading"></a></h2>
+<p>When your script receives a signal that it does know how to handle,
+by default it terminates.</p>
+<p>With the <code class="docutils literal notranslate"><span class="pre">trap</span></code> command, it is possible to catch and handle some of the signals,
+typically before aborting, for example cleaning up.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>This example is contained in a separate script
+because it is better to run it in a separate subshell,
+and it is easier if this is done by running the script.</p>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>cat<span class="w"> </span>trap-example.sh<span class="w"> </span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>cleanup(){
+  echo &quot;Cleanup before interrupt and exit&quot;
+  exit 0
+}
+
+(
+trap &quot;cleanup&quot; SIGINT
+
+while true
+do
+  sleep ${SLEEP_INTERVAL:-1}
+done
+) &amp; 
+
+sleep 5
+kill -SIGINT %1 # Sending the signal to the process in the background.
+echo &quot;Sent SIGINT at $SECONDS seconds&quot;
+wait
+echo &quot;Subprocess terminated at $SECONDS seconds&quot;
+</pre></div>
+</div>
+</div>
+</div>
+<section id="when-is-a-trap-executed">
+<span id="signals-and-traps-caveat"></span><h3>When is a trap executed?<a class="headerlink" href="#when-is-a-trap-executed" title="Link to this heading"></a></h3>
+<p>Notice that the function set with the <code class="docutils literal notranslate"><span class="pre">trap</span></code> command
+can be executed only when the bash shell
+has control of the execution,
+i.e. between commands invocations in the shell.</p>
+<p>The default behaviour of this script is the following:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="nb">unset</span><span class="w"> </span>SLEEP_INTERVAL
+bash<span class="w"> </span>./trap-example.sh
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Sent SIGINT at 5 seconds
+Cleanup before interrupt and exit
+Subprocess terminated at 5 seconds
+</pre></div>
+</div>
+</div>
+</div>
+<p>Thanks to the fact that the shell is waking up every second,
+the signal handler defined by <code class="docutils literal notranslate"><span class="pre">trap</span></code> can be invoked timely.</p>
+<p>But if we set <code class="docutils literal notranslate"><span class="pre">SLEEP_INTERVAL</span></code> to, for example, 10 seconds,
+then the signal handler will not be invoked when the signal is sent,
+but only later, at the first occasion when the shell takes control:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="nb">export</span><span class="w"> </span><span class="nv">SLEEP_INTERVAL</span><span class="o">=</span><span class="m">10</span>
+bash<span class="w"> </span>./trap-example.sh
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Sent SIGINT at 5 seconds
+Cleanup before interrupt and exit
+Subprocess terminated at 10 seconds
+</pre></div>
+</div>
+</div>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>The <code class="docutils literal notranslate"><span class="pre">trap</span></code> mechanism,
+together with the <code class="docutils literal notranslate"><span class="pre">--signal</span></code> option for <code class="docutils literal notranslate"><span class="pre">sbatch</span></code>,
+can be used to trigger a controlled termination of a slurm job.
+See <a class="reference internal" href="../job_examples.html#signal-and-traps"><span class="std std-ref">this example</span></a></p>
+</div>
+</section>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="../bash/the_manual.html" class="btn btn-neutral float-left" title="Understanding the Bash manual" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="../bash/composability2.html" class="btn btn-neutral float-right" title="More Bash features and their composability" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright .</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

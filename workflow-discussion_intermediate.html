@@ -1,0 +1,258 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="./">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Workflow discussion &mdash; SCC/SCS Shell And Job Scripting  documentation</title>
+      <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=b86133f3" />
+      <link rel="stylesheet" type="text/css" href="_static/css/theme.css?v=e59714d7" />
+      <link rel="stylesheet" type="text/css" href="_static/mystnb.8ecb98da25f57f5357bf6f572d296f466b2cfe2517ffebfabe82451661e28f02.css" />
+      <link rel="stylesheet" type="text/css" href="_static/copybutton.css?v=76b2166b" />
+      <link rel="stylesheet" type="text/css" href="_static/togglebutton.css?v=13237357" />
+      <link rel="stylesheet" type="text/css" href="_static/sphinx_lesson.css?v=e9df6548" />
+      <link rel="stylesheet" type="text/css" href="_static/term_role_formatting.css?v=4194e21c" />
+      <link rel="stylesheet" type="text/css" href="_static/sphinx_rtd_theme_ext_color_contrast.css?v=8e8ea19f" />
+
+  
+      <script src="_static/jquery.js?v=5d32c60e"></script>
+      <script src="_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="_static/documentation_options.js?v=5929fcd5"></script>
+      <script src="_static/doctools.js?v=9a2dae69"></script>
+      <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+      <script src="_static/clipboard.min.js?v=a7894cd8"></script>
+      <script src="_static/copybutton.js?v=f281be69"></script>
+      <script src="_static/minipres.js?v=a0d29692"></script>
+      <script>let toggleHintShow = 'Click to show';</script>
+      <script>let toggleHintHide = 'Click to hide';</script>
+      <script>let toggleOpenOnPrint = 'true';</script>
+      <script src="_static/togglebutton.js?v=4a39c7ea"></script>
+      <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+      <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script src="_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Composability" href="bash/composability.html" />
+    <link rel="prev" title="Job Scripting and best practices" href="general_best_practices.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="index.html" class="icon icon-home">
+            SCC/SCS Shell And Job Scripting
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Motivation</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="motivation.html">Why should one learn the shell?</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="motivation.html#advantages">Advantages</a></li>
+<li class="toctree-l2"><a class="reference internal" href="motivation.html#limitations">Limitations</a></li>
+</ul>
+</li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Intermediate</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="general_best_practices.html">Job Scripting and best practices</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="general_best_practices.html#what-is-a-bash-script">What is a Bash script?</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="general_best_practices.html#where-do-scripts-come-from">Where do scripts come from?</a></li>
+<li class="toctree-l3"><a class="reference internal" href="general_best_practices.html#structure-of-a-bash-script-best-practices">Structure of a Bash script: best practices</a></li>
+<li class="toctree-l3"><a class="reference internal" href="general_best_practices.html#adapt-it-to-for-use-with-sbatch">Adapt it to for use with sbatch</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Workflow discussion</a></li>
+<li class="toctree-l1"><a class="reference internal" href="bash/composability.html">Composability</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="bash/composability.html#streams-and-redirections">Streams and redirections</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="bash/composability.html#clarification-stdin-vs-command-line-arguments">Clarification: stdin vs command line arguments</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="bash/composability.html#pipes">Pipes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="bash/composability.html#variables">Variables</a></li>
+<li class="toctree-l2"><a class="reference internal" href="bash/composability.html#yet-another-way-to-reuse-the-output-of-a-command">Yet another way to reuse the output of a command</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="bash/dealing_with_repetition.html">Dealing with repetition</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="bash/dealing_with_repetition.html#iterating-on-multiple-files-directories-with-for-loops">Iterating on multiple files/directories with <code class="docutils literal notranslate"><span class="pre">for</span></code> loops</a></li>
+<li class="toctree-l2"><a class="reference internal" href="bash/dealing_with_repetition.html#non-integer-parameter-scans-with-seq">Non integer parameter scans with <code class="docutils literal notranslate"><span class="pre">seq</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="embarrassingly_parallel.html">Simple Parallelism patterns in the shell</a></li>
+<li class="toctree-l1"><a class="reference internal" href="embarrassingly_parallel.html#tools-for-embarrassingly-parallel-workloads">Tools for embarrassingly Parallel Workloads</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="embarrassingly_parallel.html#parbatch">Parbatch</a></li>
+<li class="toctree-l2"><a class="reference internal" href="embarrassingly_parallel.html#similar-projects">Similar Projects</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="slurm_arrays_and_workflows.html">SLURM Workflows</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="slurm_arrays_and_workflows.html#repeating-jobs-with-job-arrays">Repeating jobs with job arrays</a></li>
+<li class="toctree-l2"><a class="reference internal" href="slurm_arrays_and_workflows.html#workflow-managers">Workflow managers</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="bash/interactive_tips_and_tricks.html">Tips and Tricks for interactive use</a></li>
+<li class="toctree-l1"><a class="reference internal" href="ssh/tips-and-tricks.html">SSH ergonomics</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="ssh/tips-and-tricks.html#the-ssh-config-file">The <code class="docutils literal notranslate"><span class="pre">.ssh/config</span></code> file</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ssh/tips-and-tricks.html#ssh-keys">SSH keys</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="ssh/tips-and-tricks.html#generating-a-ssh-keypair-and-registering-it">Generating a ssh keypair and registering it</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="ssh/tips-and-tricks.html#ssh-agent"><code class="docutils literal notranslate"><span class="pre">ssh-agent</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="ssh/tips-and-tricks.html#security-on-hpc-is-important">Security on HPC is important!</a></li>
+</ul>
+</li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Advanced</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="job_examples.html">Examples of job scripts</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="job_examples.html#dealing-with-walltime-limits-on-your-own-terms">Dealing with walltime limits on your own terms</a></li>
+<li class="toctree-l2"><a class="reference internal" href="job_examples.html#job-chaining-using-recursive-sbatch">Job chaining using recursive <code class="docutils literal notranslate"><span class="pre">sbatch</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="job_examples.html#setting-dependencies-between-jobs-using-slurm">Setting dependencies between jobs using Slurm</a></li>
+<li class="toctree-l2"><a class="reference internal" href="job_examples.html#an-excerpt-of-a-job-using-a-local-private-filesystem">An excerpt of a job using a local/private FileSystem</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="bash/the_manual.html">Understanding the Bash manual</a></li>
+<li class="toctree-l1"><a class="reference internal" href="jupyter/control_flow.html">Control flow in Bash: <code class="docutils literal notranslate"><span class="pre">if</span></code>, <code class="docutils literal notranslate"><span class="pre">while</span></code> and <code class="docutils literal notranslate"><span class="pre">trap</span></code>s</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="jupyter/control_flow.html#control-flow-statements">Control flow statements</a></li>
+<li class="toctree-l2"><a class="reference internal" href="jupyter/control_flow.html#if-else-statements"><code class="docutils literal notranslate"><span class="pre">if</span></code>-<code class="docutils literal notranslate"><span class="pre">else</span></code> statements</a></li>
+<li class="toctree-l2"><a class="reference internal" href="jupyter/control_flow.html#and"><code class="docutils literal notranslate"><span class="pre">&amp;&amp;</span></code>, <code class="docutils literal notranslate"><span class="pre">||</span></code> and <code class="docutils literal notranslate"><span class="pre">!</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="jupyter/control_flow.html#while-loops">While loops</a></li>
+<li class="toctree-l2"><a class="reference internal" href="jupyter/control_flow.html#dealing-with-signals-traps">Dealing with signals: traps</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="jupyter/control_flow.html#when-is-a-trap-executed">When is a trap executed?</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="bash/composability2.html">More Bash features and their composability</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="bash/composability2.html#more-streams-and-redirections">More streams and redirections</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="bash/composability2.html#use-a-file-as-stdin-for-a-process">Use a file as <code class="docutils literal notranslate"><span class="pre">stdin</span></code> for  a process: <code class="docutils literal notranslate"><span class="pre">&lt;</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="bash/composability2.html#stderr-into-stdout-or-vice-versa"><code class="docutils literal notranslate"><span class="pre">stderr</span></code> into <code class="docutils literal notranslate"><span class="pre">stdout</span></code> or vice versa</a></li>
+<li class="toctree-l3"><a class="reference internal" href="bash/composability2.html#process-substitution">Process substitution: <code class="docutils literal notranslate"><span class="pre">&lt;()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="bash/composability2.html#compound-commands">Compound commands</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="bash/composability2.html#subshells-and-export">Subshells and <code class="docutils literal notranslate"><span class="pre">export</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="bash/composability2.html#bash-functions">Bash functions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="bash/composability2.html#arrays">Arrays</a></li>
+<li class="toctree-l2"><a class="reference internal" href="bash/composability2.html#dealing-with-repetition-pipe-into-xargs-instead-of-for">Dealing with repetition: pipe into <code class="docutils literal notranslate"><span class="pre">xargs</span></code> instead of <code class="docutils literal notranslate"><span class="pre">for</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="defensive_programming.html">Defensive programming and debugging</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="defensive_programming.html#debug-and-error-checking">Debug and error checking</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="defensive_programming.html#fail-on-error-set-e">Fail on error: <code class="docutils literal notranslate"><span class="pre">set</span> <span class="pre">-e</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="defensive_programming.html#error-when-using-an-undefined-variable-set-u">Error when using an undefined variable: <code class="docutils literal notranslate"><span class="pre">set</span> <span class="pre">-u</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="defensive_programming.html#debugging-set-x">Debugging: <code class="docutils literal notranslate"><span class="pre">set</span> <span class="pre">-x</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="defensive_programming.html#automatic-check-for-common-bad-practices-and-antipatterns">Automatic check for common bad practices and antipatterns</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="bash/interactive_tips_and_tricks2.html">Tips and Tricks for interactive use</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="bash/interactive_tips_and_tricks2.html#multitasking-et-similia">Multitasking <em>et similia</em></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="bash/interactive_tips_and_tricks2.html#using-multiple-applications-at-the-same-time">Using multiple applications at the same time</a></li>
+<li class="toctree-l3"><a class="reference internal" href="bash/interactive_tips_and_tricks2.html#alternative-tmux">Alternative: <code class="docutils literal notranslate"><span class="pre">tmux</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="jupyter/text_manipulation.html">Unix tools for manipulation, exploration and monitoring of text files</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="jupyter/text_manipulation.html#vertical-text-manipulation">“Vertical” text manipulation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="jupyter/text_manipulation.html#horizontal-manipulations">Horizontal Manipulations</a></li>
+<li class="toctree-l2"><a class="reference internal" href="jupyter/text_manipulation.html#when-cut-does-not-cut-it-awk">When <code class="docutils literal notranslate"><span class="pre">cut</span></code> does not cut it: <code class="docutils literal notranslate"><span class="pre">awk</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="jupyter/text_manipulation.html#bulk-text-manipulation-with-sed">Bulk text manipulation with <code class="docutils literal notranslate"><span class="pre">sed</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="jupyter/text_manipulation.html#following-a-running-program">Following a running program</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="jupyter/text_manipulation.html#the-tee-command">The <code class="docutils literal notranslate"><span class="pre">tee</span></code> command</a></li>
+<li class="toctree-l3"><a class="reference internal" href="jupyter/text_manipulation.html#the-tail-f-command">The <code class="docutils literal notranslate"><span class="pre">tail</span> <span class="pre">-f</span></code> command</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Extra</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="instructor_notes.html">Instructor notes</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="instructor_notes.html#rationale">Rationale</a></li>
+<li class="toctree-l2"><a class="reference internal" href="instructor_notes.html#known-issues">Known issues</a></li>
+<li class="toctree-l2"><a class="reference internal" href="instructor_notes.html#schedule">Schedule</a></li>
+</ul>
+</li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">SCC/SCS Shell And Job Scripting</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="index.html" class="icon icon-home" aria-label="Home"></a></li>
+      <li class="breadcrumb-item active">Workflow discussion</li>
+      <li class="wy-breadcrumbs-aside">
+              <a href="https://github.com/mmesiti/shell-job-scripting-scc/blob/main/content/workflow-discussion_intermediate.md" class="fa fa-github"> Edit on GitHub</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="workflow-discussion">
+<h1>Workflow discussion<a class="headerlink" href="#workflow-discussion" title="Link to this heading"></a></h1>
+<ul class="simple">
+<li><p>How do you use the system?</p></li>
+<li><p>What are the typical steps in your workflow?</p></li>
+</ul>
+<p>Feel free to add your thoughts in the <a class="reference external" href="https://pad.gwdg.de/tUhPevqVRMqHvXbWEMCfGQ?both">collaborative pad</a>.</p>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="general_best_practices.html" class="btn btn-neutral float-left" title="Job Scripting and best practices" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="bash/composability.html" class="btn btn-neutral float-right" title="Composability" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright .</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

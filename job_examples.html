@@ -1,0 +1,512 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="./">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Examples of job scripts &mdash; SCC/SCS Shell And Job Scripting  documentation</title>
+      <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=b86133f3" />
+      <link rel="stylesheet" type="text/css" href="_static/css/theme.css?v=e59714d7" />
+      <link rel="stylesheet" type="text/css" href="_static/mystnb.8ecb98da25f57f5357bf6f572d296f466b2cfe2517ffebfabe82451661e28f02.css" />
+      <link rel="stylesheet" type="text/css" href="_static/copybutton.css?v=76b2166b" />
+      <link rel="stylesheet" type="text/css" href="_static/togglebutton.css?v=13237357" />
+      <link rel="stylesheet" type="text/css" href="_static/sphinx_lesson.css?v=e9df6548" />
+      <link rel="stylesheet" type="text/css" href="_static/term_role_formatting.css?v=4194e21c" />
+      <link rel="stylesheet" type="text/css" href="_static/sphinx_rtd_theme_ext_color_contrast.css?v=8e8ea19f" />
+
+  
+      <script src="_static/jquery.js?v=5d32c60e"></script>
+      <script src="_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="_static/documentation_options.js?v=5929fcd5"></script>
+      <script src="_static/doctools.js?v=9a2dae69"></script>
+      <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+      <script src="_static/clipboard.min.js?v=a7894cd8"></script>
+      <script src="_static/copybutton.js?v=f281be69"></script>
+      <script src="_static/minipres.js?v=a0d29692"></script>
+      <script>let toggleHintShow = 'Click to show';</script>
+      <script>let toggleHintHide = 'Click to hide';</script>
+      <script>let toggleOpenOnPrint = 'true';</script>
+      <script src="_static/togglebutton.js?v=4a39c7ea"></script>
+      <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+      <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script src="_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Understanding the Bash manual" href="bash/the_manual.html" />
+    <link rel="prev" title="SSH ergonomics" href="ssh/tips-and-tricks.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="index.html" class="icon icon-home">
+            SCC/SCS Shell And Job Scripting
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Motivation</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="motivation.html">Why should one learn the shell?</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="motivation.html#advantages">Advantages</a></li>
+<li class="toctree-l2"><a class="reference internal" href="motivation.html#limitations">Limitations</a></li>
+</ul>
+</li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Intermediate</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="general_best_practices.html">Job Scripting and best practices</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="general_best_practices.html#what-is-a-bash-script">What is a Bash script?</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="general_best_practices.html#where-do-scripts-come-from">Where do scripts come from?</a></li>
+<li class="toctree-l3"><a class="reference internal" href="general_best_practices.html#structure-of-a-bash-script-best-practices">Structure of a Bash script: best practices</a></li>
+<li class="toctree-l3"><a class="reference internal" href="general_best_practices.html#adapt-it-to-for-use-with-sbatch">Adapt it to for use with sbatch</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="workflow-discussion_intermediate.html">Workflow discussion</a></li>
+<li class="toctree-l1"><a class="reference internal" href="bash/composability.html">Composability</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="bash/composability.html#streams-and-redirections">Streams and redirections</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="bash/composability.html#clarification-stdin-vs-command-line-arguments">Clarification: stdin vs command line arguments</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="bash/composability.html#pipes">Pipes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="bash/composability.html#variables">Variables</a></li>
+<li class="toctree-l2"><a class="reference internal" href="bash/composability.html#yet-another-way-to-reuse-the-output-of-a-command">Yet another way to reuse the output of a command</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="bash/dealing_with_repetition.html">Dealing with repetition</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="bash/dealing_with_repetition.html#iterating-on-multiple-files-directories-with-for-loops">Iterating on multiple files/directories with <code class="docutils literal notranslate"><span class="pre">for</span></code> loops</a></li>
+<li class="toctree-l2"><a class="reference internal" href="bash/dealing_with_repetition.html#non-integer-parameter-scans-with-seq">Non integer parameter scans with <code class="docutils literal notranslate"><span class="pre">seq</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="embarrassingly_parallel.html">Simple Parallelism patterns in the shell</a></li>
+<li class="toctree-l1"><a class="reference internal" href="embarrassingly_parallel.html#tools-for-embarrassingly-parallel-workloads">Tools for embarrassingly Parallel Workloads</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="embarrassingly_parallel.html#parbatch">Parbatch</a></li>
+<li class="toctree-l2"><a class="reference internal" href="embarrassingly_parallel.html#similar-projects">Similar Projects</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="slurm_arrays_and_workflows.html">SLURM Workflows</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="slurm_arrays_and_workflows.html#repeating-jobs-with-job-arrays">Repeating jobs with job arrays</a></li>
+<li class="toctree-l2"><a class="reference internal" href="slurm_arrays_and_workflows.html#workflow-managers">Workflow managers</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="bash/interactive_tips_and_tricks.html">Tips and Tricks for interactive use</a></li>
+<li class="toctree-l1"><a class="reference internal" href="ssh/tips-and-tricks.html">SSH ergonomics</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="ssh/tips-and-tricks.html#the-ssh-config-file">The <code class="docutils literal notranslate"><span class="pre">.ssh/config</span></code> file</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ssh/tips-and-tricks.html#ssh-keys">SSH keys</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="ssh/tips-and-tricks.html#generating-a-ssh-keypair-and-registering-it">Generating a ssh keypair and registering it</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="ssh/tips-and-tricks.html#ssh-agent"><code class="docutils literal notranslate"><span class="pre">ssh-agent</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="ssh/tips-and-tricks.html#security-on-hpc-is-important">Security on HPC is important!</a></li>
+</ul>
+</li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Advanced</span></p>
+<ul class="current">
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Examples of job scripts</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#dealing-with-walltime-limits-on-your-own-terms">Dealing with walltime limits on your own terms</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#job-chaining-using-recursive-sbatch">Job chaining using recursive <code class="docutils literal notranslate"><span class="pre">sbatch</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#setting-dependencies-between-jobs-using-slurm">Setting dependencies between jobs using Slurm</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#an-excerpt-of-a-job-using-a-local-private-filesystem">An excerpt of a job using a local/private FileSystem</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="bash/the_manual.html">Understanding the Bash manual</a></li>
+<li class="toctree-l1"><a class="reference internal" href="jupyter/control_flow.html">Control flow in Bash: <code class="docutils literal notranslate"><span class="pre">if</span></code>, <code class="docutils literal notranslate"><span class="pre">while</span></code> and <code class="docutils literal notranslate"><span class="pre">trap</span></code>s</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="jupyter/control_flow.html#control-flow-statements">Control flow statements</a></li>
+<li class="toctree-l2"><a class="reference internal" href="jupyter/control_flow.html#if-else-statements"><code class="docutils literal notranslate"><span class="pre">if</span></code>-<code class="docutils literal notranslate"><span class="pre">else</span></code> statements</a></li>
+<li class="toctree-l2"><a class="reference internal" href="jupyter/control_flow.html#and"><code class="docutils literal notranslate"><span class="pre">&amp;&amp;</span></code>, <code class="docutils literal notranslate"><span class="pre">||</span></code> and <code class="docutils literal notranslate"><span class="pre">!</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="jupyter/control_flow.html#while-loops">While loops</a></li>
+<li class="toctree-l2"><a class="reference internal" href="jupyter/control_flow.html#dealing-with-signals-traps">Dealing with signals: traps</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="jupyter/control_flow.html#when-is-a-trap-executed">When is a trap executed?</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="bash/composability2.html">More Bash features and their composability</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="bash/composability2.html#more-streams-and-redirections">More streams and redirections</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="bash/composability2.html#use-a-file-as-stdin-for-a-process">Use a file as <code class="docutils literal notranslate"><span class="pre">stdin</span></code> for  a process: <code class="docutils literal notranslate"><span class="pre">&lt;</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="bash/composability2.html#stderr-into-stdout-or-vice-versa"><code class="docutils literal notranslate"><span class="pre">stderr</span></code> into <code class="docutils literal notranslate"><span class="pre">stdout</span></code> or vice versa</a></li>
+<li class="toctree-l3"><a class="reference internal" href="bash/composability2.html#process-substitution">Process substitution: <code class="docutils literal notranslate"><span class="pre">&lt;()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="bash/composability2.html#compound-commands">Compound commands</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="bash/composability2.html#subshells-and-export">Subshells and <code class="docutils literal notranslate"><span class="pre">export</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="bash/composability2.html#bash-functions">Bash functions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="bash/composability2.html#arrays">Arrays</a></li>
+<li class="toctree-l2"><a class="reference internal" href="bash/composability2.html#dealing-with-repetition-pipe-into-xargs-instead-of-for">Dealing with repetition: pipe into <code class="docutils literal notranslate"><span class="pre">xargs</span></code> instead of <code class="docutils literal notranslate"><span class="pre">for</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="defensive_programming.html">Defensive programming and debugging</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="defensive_programming.html#debug-and-error-checking">Debug and error checking</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="defensive_programming.html#fail-on-error-set-e">Fail on error: <code class="docutils literal notranslate"><span class="pre">set</span> <span class="pre">-e</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="defensive_programming.html#error-when-using-an-undefined-variable-set-u">Error when using an undefined variable: <code class="docutils literal notranslate"><span class="pre">set</span> <span class="pre">-u</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="defensive_programming.html#debugging-set-x">Debugging: <code class="docutils literal notranslate"><span class="pre">set</span> <span class="pre">-x</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="defensive_programming.html#automatic-check-for-common-bad-practices-and-antipatterns">Automatic check for common bad practices and antipatterns</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="bash/interactive_tips_and_tricks2.html">Tips and Tricks for interactive use</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="bash/interactive_tips_and_tricks2.html#multitasking-et-similia">Multitasking <em>et similia</em></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="bash/interactive_tips_and_tricks2.html#using-multiple-applications-at-the-same-time">Using multiple applications at the same time</a></li>
+<li class="toctree-l3"><a class="reference internal" href="bash/interactive_tips_and_tricks2.html#alternative-tmux">Alternative: <code class="docutils literal notranslate"><span class="pre">tmux</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="jupyter/text_manipulation.html">Unix tools for manipulation, exploration and monitoring of text files</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="jupyter/text_manipulation.html#vertical-text-manipulation">“Vertical” text manipulation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="jupyter/text_manipulation.html#horizontal-manipulations">Horizontal Manipulations</a></li>
+<li class="toctree-l2"><a class="reference internal" href="jupyter/text_manipulation.html#when-cut-does-not-cut-it-awk">When <code class="docutils literal notranslate"><span class="pre">cut</span></code> does not cut it: <code class="docutils literal notranslate"><span class="pre">awk</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="jupyter/text_manipulation.html#bulk-text-manipulation-with-sed">Bulk text manipulation with <code class="docutils literal notranslate"><span class="pre">sed</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="jupyter/text_manipulation.html#following-a-running-program">Following a running program</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="jupyter/text_manipulation.html#the-tee-command">The <code class="docutils literal notranslate"><span class="pre">tee</span></code> command</a></li>
+<li class="toctree-l3"><a class="reference internal" href="jupyter/text_manipulation.html#the-tail-f-command">The <code class="docutils literal notranslate"><span class="pre">tail</span> <span class="pre">-f</span></code> command</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Extra</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="instructor_notes.html">Instructor notes</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="instructor_notes.html#rationale">Rationale</a></li>
+<li class="toctree-l2"><a class="reference internal" href="instructor_notes.html#known-issues">Known issues</a></li>
+<li class="toctree-l2"><a class="reference internal" href="instructor_notes.html#schedule">Schedule</a></li>
+</ul>
+</li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">SCC/SCS Shell And Job Scripting</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="index.html" class="icon icon-home" aria-label="Home"></a></li>
+      <li class="breadcrumb-item active">Examples of job scripts</li>
+      <li class="wy-breadcrumbs-aside">
+              <a href="https://github.com/mmesiti/shell-job-scripting-scc/blob/main/content/job_examples.md" class="fa fa-github"> Edit on GitHub</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="examples-of-job-scripts">
+<h1>Examples of job scripts<a class="headerlink" href="#examples-of-job-scripts" title="Link to this heading"></a></h1>
+<div class="admonition-objectives objectives admonition" id="objectives-0">
+<p class="admonition-title">Objectives</p>
+<ul class="simple">
+<li><p>Deal with job termination on your own term (inspirational)</p></li>
+<li><p>Chain jobs using recursive <code class="docutils literal notranslate"><span class="pre">sbatch</span></code> invocations (inspirational)</p></li>
+<li><p>Use SLURM dependencies to launch graphs of interdependent slurm jobs (inspirational)</p></li>
+</ul>
+</div>
+<p>Here we present a collection of jobscript examples,
+showing how to use some particular feature of SLURM
+that can be useful.</p>
+<p>In the following episodes we will describe more concretely
+how these work,
+clarifying the syntax
+and the relevant features of the bash shell.</p>
+<p>All examples originally written Robert Barthel from KIT/SCC/SCS.</p>
+<section id="dealing-with-walltime-limits-on-your-own-terms">
+<span id="signal-and-traps"></span><h2>Dealing with walltime limits on your own terms<a class="headerlink" href="#dealing-with-walltime-limits-on-your-own-terms" title="Link to this heading"></a></h2>
+<p>SLURM can be configured
+so that it sends a signal to your script
+some time before the <em>wall time</em> ends,
+by using the <code class="docutils literal notranslate"><span class="pre">--signal</span></code> option for <code class="docutils literal notranslate"><span class="pre">sbatch</span></code>.
+In this case, the signal is sent
+120 seconds before the wall time ends:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="ch">#!/bin/bash</span>
+<span class="c1">## Pre-termination via Slurm </span>
+<span class="c1">## sending signal with defined offset </span>
+
+<span class="c1">#SBATCH --ntasks=1</span>
+<span class="c1">#SBATCH --time=0-00:05:00</span>
+<span class="c1">#SBATCH --mem=100</span>
+<span class="c1">#SBATCH --signal=B:15@120</span>
+
+cleanup<span class="o">(){</span>
+<span class="w">  </span><span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;Cleanup before walltime reached&quot;</span>
+<span class="w">  </span><span class="nb">exit</span><span class="w"> </span><span class="m">0</span>
+<span class="o">}</span>
+
+<span class="nb">trap</span><span class="w"> </span>cleanup<span class="w"> </span><span class="m">15</span>
+
+<span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;Repeating \&quot;sleep 1\&quot; loop until SIGTERM&quot;</span>
+<span class="nv">i</span><span class="o">=</span><span class="m">1</span>
+<span class="k">while</span><span class="w"> </span><span class="nb">true</span><span class="w"> </span><span class="p">;</span><span class="w"> </span><span class="k">do</span>
+<span class="w">  </span>sleep<span class="w"> </span><span class="m">1</span><span class="p">;</span><span class="w"> </span><span class="nb">echo</span><span class="w"> </span><span class="nv">$i</span><span class="p">;</span><span class="w"> </span><span class="nb">let</span><span class="w"> </span><span class="nv">i</span><span class="o">+=</span><span class="m">1</span>
+<span class="k">done</span>
+</pre></div>
+</div>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>As discussed <a class="reference internal" href="jupyter/control_flow.html#signals-and-traps-caveat"><span class="std std-ref">here</span></a>,
+the signal handler will not be called
+until the shell recovers execution, e.g.:</p>
+<ul class="simple">
+<li><p>until an external program
+(even <code class="docutils literal notranslate"><span class="pre">sleep</span></code>)
+that is running in the foreground
+stops executing</p></li>
+<li><p>until a <code class="docutils literal notranslate"><span class="pre">wait</span></code> stops executing</p></li>
+</ul>
+</div>
+</section>
+<section id="job-chaining-using-recursive-sbatch">
+<h2>Job chaining using recursive <code class="docutils literal notranslate"><span class="pre">sbatch</span></code><a class="headerlink" href="#job-chaining-using-recursive-sbatch" title="Link to this heading"></a></h2>
+<p>It is possible to use <code class="docutils literal notranslate"><span class="pre">sbatch</span></code> inside a job script,
+to make so that it resubmits itself recursively once it has ended.</p>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>To use this feature safely,
+one should make sure that all the failure modes are properly taken care of, and that the recursion ends in <em>every possible case</em>.</p>
+<p>See <a class="reference internal" href="defensive_programming.html"><span class="std std-doc">defensive programming practices</span></a>.</p>
+</div>
+<p>Example:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="ch">#!/bin/bash</span>
+<span class="c1">#SBATCH -N1 -n1 -t 00:00:05 –mem=250 -p ws</span>
+<span class="c1">## Defaults</span>
+<span class="nv">loop_max</span><span class="o">=</span><span class="m">10</span>
+<span class="nv">cmd</span><span class="o">=</span><span class="s1">&#39;sleep 2&#39;</span>
+
+<span class="c1">## Check if counter environment variable is set</span>
+<span class="k">if</span><span class="w"> </span><span class="o">[</span><span class="w"> </span>-z<span class="w"> </span><span class="s2">&quot;</span><span class="si">${</span><span class="nv">counter</span><span class="si">}</span><span class="s2">&quot;</span><span class="w"> </span><span class="o">]</span><span class="w"> </span><span class="p">;</span><span class="w"> </span><span class="k">then</span>
+<span class="w">   </span><span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;  ERROR: counter is undefined, stop chain job&quot;</span><span class="p">;</span><span class="w"> </span><span class="nb">exit</span><span class="w"> </span><span class="m">1</span>
+<span class="k">fi</span>
+<span class="c1">## only continue if below loop_max</span>
+<span class="k">if</span><span class="w"> </span><span class="o">[</span><span class="w"> </span><span class="si">${</span><span class="nv">counter</span><span class="si">}</span><span class="w"> </span>-lt<span class="w"> </span><span class="si">${</span><span class="nv">loop_max</span><span class="si">}</span><span class="w"> </span><span class="o">]</span><span class="w"> </span><span class="p">;</span><span class="w"> </span><span class="k">then</span>
+<span class="w">   </span><span class="c1">## increase counter    </span>
+<span class="w">   </span><span class="nb">let</span><span class="w"> </span><span class="nv">counter</span><span class="o">+=</span><span class="m">1</span>
+<span class="w">   </span><span class="c1">## print current Job number</span>
+<span class="w">   </span><span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;  Chain job iteration = </span><span class="si">${</span><span class="nv">counter</span><span class="si">}</span><span class="s2">&quot;</span>
+<span class="w">   </span><span class="c1">## Execute your command</span>
+<span class="w">   </span><span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;  -&gt; executing </span><span class="si">${</span><span class="nv">cmd</span><span class="si">}</span><span class="s2">&quot;</span>
+<span class="w">   </span><span class="si">${</span><span class="nv">cmd</span><span class="si">}</span>
+
+<span class="w">   </span><span class="k">if</span><span class="w"> </span><span class="o">[</span><span class="w"> </span><span class="nv">$?</span><span class="w"> </span>-eq<span class="w"> </span><span class="m">0</span><span class="w"> </span><span class="o">]</span><span class="w"> </span><span class="p">;</span><span class="w"> </span><span class="k">then</span>
+<span class="w">      </span><span class="c1">## continue only if last command was successful</span>
+<span class="w">       </span>sbatch<span class="w"> </span>--export<span class="o">=</span><span class="nv">counter</span><span class="o">=</span><span class="si">${</span><span class="nv">counter</span><span class="si">}</span><span class="w"> </span>./02_chain_job_solv.sh
+<span class="w">   </span><span class="k">else</span>
+<span class="w">      </span><span class="c1">## Terminate chain </span>
+<span class="w">      </span><span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;  ERROR: </span><span class="si">${</span><span class="nv">cmd</span><span class="si">}</span><span class="s2"> of chain job no. </span><span class="si">${</span><span class="nv">counter</span><span class="si">}</span><span class="s2"> terminated unexpectedly&quot;</span>
+<span class="w">      </span><span class="nb">exit</span><span class="w"> </span><span class="m">1</span>
+<span class="w">   </span><span class="k">fi</span>
+<span class="k">fi</span><span class="w"> </span>
+</pre></div>
+</div>
+</section>
+<section id="setting-dependencies-between-jobs-using-slurm">
+<h2>Setting dependencies between jobs using Slurm<a class="headerlink" href="#setting-dependencies-between-jobs-using-slurm" title="Link to this heading"></a></h2>
+<p>Performing all the steps of a workflow
+from scratch in a single slurm job
+might waste resources if the steps differ
+in the amount of resource needed.</p>
+<p>In that case, one might want
+to submit different jobs for each step,
+but a dependency graph needs to be defined.</p>
+<ul class="simple">
+<li><p>Use the sbatch <code class="docutils literal notranslate"><span class="pre">--dependency</span></code> option to launch the <em>dependent</em> jobs</p></li>
+<li><p>Use the sbatch <code class="docutils literal notranslate"><span class="pre">--parsable</span></code> and command substitution
+to obtain automatically the job ID for the “upstream” jobs</p></li>
+</ul>
+<p>Here is an example of job chaining using slurm dependencies:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="ch">#!/bin/bash</span>
+<span class="nv">max_nojob</span><span class="o">=</span><span class="si">${</span><span class="nv">1</span><span class="k">:-</span><span class="nv">5</span><span class="si">}</span>
+<span class="nv">chain_link_job</span><span class="o">=</span><span class="si">${</span><span class="nv">PWD</span><span class="si">}</span>/chain_link.sh
+
+<span class="nv">counter</span><span class="o">=</span><span class="m">1</span>
+<span class="k">while</span><span class="w"> </span><span class="o">[</span><span class="w"> </span><span class="si">${</span><span class="nv">counter</span><span class="si">}</span><span class="w"> </span>-le<span class="w"> </span><span class="si">${</span><span class="nv">max_nojob</span><span class="si">}</span><span class="w"> </span><span class="o">]</span><span class="w"> </span><span class="p">;</span><span class="w"> </span><span class="k">do</span>
+<span class="w">   </span><span class="k">if</span><span class="w"> </span><span class="o">[</span><span class="w"> </span><span class="si">${</span><span class="nv">counter</span><span class="si">}</span><span class="w"> </span>-eq<span class="w"> </span><span class="m">1</span><span class="w"> </span><span class="o">]</span><span class="w"> </span><span class="p">;</span><span class="w"> </span><span class="k">then</span>
+<span class="w">      </span><span class="nv">slurm_opt</span><span class="o">=</span><span class="s2">&quot;&quot;</span>
+<span class="w">   </span><span class="k">else</span>
+<span class="w">      </span><span class="nv">slurm_opt</span><span class="o">=</span><span class="s2">&quot;--dependency afterok:</span><span class="si">${</span><span class="nv">jobID</span><span class="si">}</span><span class="s2">&quot;</span>
+<span class="w">   </span><span class="k">fi</span>
+
+<span class="w">   </span><span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;Chain job iteration = </span><span class="si">${</span><span class="nv">counter</span><span class="si">}</span><span class="s2">&quot;</span>
+<span class="w">   </span><span class="nv">command</span><span class="o">=(</span>sbatch<span class="w"> </span>--export<span class="o">=</span><span class="nv">counter</span><span class="o">=</span><span class="si">${</span><span class="nv">counter</span><span class="si">}</span><span class="w"> </span><span class="si">${</span><span class="nv">slurm_opt</span><span class="si">}</span><span class="w"> </span><span class="si">${</span><span class="nv">chain_link_job</span><span class="si">}</span><span class="o">)</span>
+<span class="w">   </span><span class="c1">## Store job ID for next iteration by storing output of msub command with empty lines</span>
+<span class="w">   </span><span class="nv">jobID</span><span class="o">=</span><span class="k">$(</span><span class="w"> </span><span class="s2">&quot;</span><span class="si">${</span><span class="nv">command</span><span class="p">[@]</span><span class="si">}</span><span class="s2">&quot;</span><span class="w"> </span><span class="m">2</span>&gt;<span class="p">&amp;</span><span class="m">1</span><span class="w"> </span><span class="p">|</span><span class="w"> </span>sed<span class="w"> </span><span class="s1">&#39;s/[S,a-z]* //g&#39;</span><span class="k">)</span>
+
+<span class="w">   </span><span class="c1">## Check if ERROR occured</span>
+<span class="w">   </span><span class="k">if</span><span class="w"> </span><span class="o">[[</span><span class="w"> </span><span class="s2">&quot;</span><span class="si">${</span><span class="nv">jobID</span><span class="si">}</span><span class="s2">&quot;</span><span class="w"> </span><span class="o">=</span>~<span class="w"> </span><span class="s2">&quot;ERROR&quot;</span><span class="w"> </span><span class="o">]]</span><span class="w"> </span><span class="p">;</span><span class="w"> </span><span class="k">then</span>
+<span class="w">      </span><span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;   -&gt; submission failed!&quot;</span><span class="w"> </span><span class="p">;</span><span class="w"> </span><span class="nb">exit</span><span class="w"> </span><span class="m">1</span>
+<span class="w">   </span><span class="k">else</span>
+<span class="w">      </span><span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;   -&gt; job number = </span><span class="si">${</span><span class="nv">jobID</span><span class="si">}</span><span class="s2">&quot;</span>
+<span class="w">   </span><span class="k">fi</span>
+<span class="w">   </span><span class="c1">## Increase counter</span>
+<span class="w">   </span><span class="nb">let</span><span class="w"> </span><span class="nv">counter</span><span class="o">+=</span><span class="m">1</span>
+<span class="k">done</span>
+</pre></div>
+</div>
+</section>
+<section id="an-excerpt-of-a-job-using-a-local-private-filesystem">
+<h2>An excerpt of a job using a local/private FileSystem<a class="headerlink" href="#an-excerpt-of-a-job-using-a-local-private-filesystem" title="Link to this heading"></a></h2>
+<p>We will describe the syntax used in this example
+in the following episodes.</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="c1">###################</span>
+<span class="c1">## DECLARATIONS  ##</span>
+<span class="c1">###################</span>
+<span class="c1"># 1.a) Define your binary</span>
+<span class="nv">submitdir</span><span class="o">=</span><span class="si">${</span><span class="nv">SLURM_SUBMIT_DIR</span><span class="k">:-</span><span class="si">${</span><span class="nv">PWD</span><span class="si">}}</span>
+<span class="nv">EXE</span><span class="o">=</span><span class="s2">&quot;01_gen_files.x&quot;</span>
+
+<span class="c1">## 1.b) Define output file</span>
+<span class="c1">##    = Name of executable wo extension + JOBID or PID </span>
+<span class="nv">output</span><span class="o">=</span><span class="s2">&quot;</span><span class="k">$(</span>basename<span class="w"> </span><span class="si">${</span><span class="nv">EXE</span><span class="p">/.*</span><span class="si">}</span><span class="k">)</span><span class="s2">_</span><span class="si">${</span><span class="nv">SLURM_JOB_ID</span><span class="k">:-</span><span class="nv">$$</span><span class="si">}</span><span class="s2">.log&quot;</span>
+
+<span class="c1">## 1.c) Define full path input files </span>
+<span class="nv">Input</span><span class="o">=</span><span class="s2">&quot;01_gen_files.inp&quot;</span>
+
+<span class="c1">## 1.d) Define input files to be copied</span>
+<span class="nv">copy_list</span><span class="o">=</span><span class="s2">&quot;</span><span class="si">${</span><span class="nv">EXE</span><span class="si">}</span><span class="s2"> </span><span class="si">${</span><span class="nv">input</span><span class="si">}</span><span class="s2">&quot;</span>
+
+<span class="c1">## 1.e) Define files to be copied back after run, i.e. output file</span>
+<span class="nv">save_list</span><span class="o">=</span><span class="s2">&quot;</span><span class="si">${</span><span class="nv">output</span><span class="si">}</span><span class="s2"> files_*.out&quot;</span>
+
+<span class="c1">## 1.f) Load modules INTEL+MKL</span>
+<span class="k">for</span><span class="w"> </span>mod<span class="w"> </span><span class="k">in</span><span class="w"> </span>compiler/intel<span class="w"> </span>numlib/mkl<span class="w"> </span><span class="p">;</span><span class="w"> </span><span class="k">do</span>
+<span class="w">   </span>module<span class="w"> </span>load<span class="w"> </span><span class="s2">&quot;</span><span class="si">${</span><span class="nv">mod</span><span class="si">}</span><span class="s2">&quot;</span>
+<span class="k">done</span>
+
+<span class="c1">###################</span>
+<span class="c1">## BODY          ##</span>
+<span class="c1">###################</span>
+<span class="c1">## 2) Define your run directory and and generate via mkdir</span>
+<span class="c1">##    Nodes=1 -&gt; TMPDIR option: run_DIR &lt;=&gt; tmpdir + username + JobID or PID</span>
+<span class="c1">##    Nodes&gt;1 -&gt; BEEOND option: run_DIR &lt;=&gt; path to BEEOND directories</span>
+<span class="k">if</span><span class="w"> </span><span class="o">[</span><span class="w"> </span>!<span class="w"> </span>-z<span class="w"> </span><span class="si">${</span><span class="nv">SLURM_JOB_NAME</span><span class="si">}</span><span class="w"> </span><span class="o">]</span><span class="w"> </span><span class="p">;</span><span class="w"> </span><span class="k">then</span>
+<span class="w">   </span><span class="k">if</span><span class="w"> </span><span class="o">[</span><span class="w"> </span><span class="si">${</span><span class="nv">SLURM_NNODES</span><span class="k">:-</span><span class="nv">1</span><span class="si">}</span><span class="w"> </span>-gt<span class="w"> </span><span class="m">1</span><span class="w"> </span><span class="o">]</span><span class="w"> </span><span class="p">;</span><span class="w"> </span><span class="k">then</span>
+<span class="w">      </span><span class="nv">run_DIR</span><span class="o">=</span>/mnt/odfs/<span class="si">${</span><span class="nv">SLURM_JOB_ID</span><span class="si">}</span>/stripe_16/
+<span class="w">   </span><span class="k">else</span>
+<span class="w">      </span><span class="nv">run_DIR</span><span class="o">=</span><span class="si">${</span><span class="nv">TMPDIR</span><span class="si">}</span>
+<span class="w">   </span><span class="k">fi</span>
+<span class="k">else</span>
+<span class="w">   </span><span class="nv">run_DIR</span><span class="o">=</span><span class="s2">&quot;</span><span class="si">${</span><span class="nv">TMPDIR</span><span class="si">}</span><span class="s2">/</span><span class="si">${</span><span class="nv">USER</span><span class="si">}</span><span class="s2">.</span><span class="si">${</span><span class="nv">SLURM_JOB_ID</span><span class="k">:-</span><span class="nv">$$</span><span class="si">}</span><span class="s2">&quot;</span>
+<span class="w">   </span>mkdir<span class="w"> </span>-pv<span class="w"> </span><span class="s2">&quot;</span><span class="si">${</span><span class="nv">run_DIR</span><span class="si">}</span><span class="s2">&quot;</span>
+<span class="k">fi</span>
+
+<span class="c1">## 3.a) Check existence of run directory</span>
+<span class="k">if</span><span class="w"> </span><span class="o">[</span><span class="w"> </span>!<span class="w"> </span>-d<span class="w"> </span><span class="s2">&quot;</span><span class="si">${</span><span class="nv">run_DIR</span><span class="si">}</span><span class="s2">&quot;</span><span class="w"> </span><span class="o">]</span><span class="w"> </span><span class="p">;</span><span class="w"> </span><span class="k">then</span>
+<span class="w">   </span><span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;ERROR: Run DIR = </span><span class="si">${</span><span class="nv">run_DIR</span><span class="si">}</span><span class="s2"> does not exist&quot;</span><span class="p">;</span><span class="w"> </span><span class="nb">exit</span><span class="w"> </span><span class="m">1</span>
+<span class="k">fi</span>
+
+<span class="c1">## 3.b) Change to Submit Dir or PWD / Copy files from submit_DIR to run_DIR</span>
+<span class="nb">cd</span><span class="w"> </span><span class="s2">&quot;</span><span class="si">${</span><span class="nv">submitdir</span><span class="si">}</span><span class="s2">&quot;</span>
+<span class="k">for</span><span class="w"> </span>X<span class="w"> </span><span class="k">in</span><span class="w"> </span><span class="si">${</span><span class="nv">copy_list</span><span class="si">}</span><span class="w"> </span><span class="p">;</span><span class="w"> </span><span class="k">do</span>
+<span class="w">   </span>cp<span class="w"> </span>-pv<span class="w"> </span><span class="s2">&quot;</span><span class="si">${</span><span class="nv">X</span><span class="si">}</span><span class="s2">&quot;</span><span class="w"> </span><span class="s2">&quot;</span><span class="si">${</span><span class="nv">run_DIR</span><span class="si">}</span><span class="s2">&quot;</span>
+<span class="w">   </span><span class="k">if</span><span class="w"> </span><span class="o">[</span><span class="w"> </span><span class="nv">$?</span><span class="w"> </span>-ne<span class="w"> </span><span class="m">0</span><span class="w"> </span><span class="o">]</span><span class="w"> </span><span class="p">;</span><span class="w"> </span><span class="k">then</span><span class="w"> </span><span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;ERROR: Copy of </span><span class="si">${</span><span class="nv">X</span><span class="si">}</span><span class="s2"> failed&quot;</span><span class="p">;</span><span class="w"> </span><span class="nb">exit</span><span class="w"> </span><span class="m">1</span><span class="p">;</span><span class="w"> </span><span class="k">fi</span>
+<span class="k">done</span>
+
+<span class="c1">## 4) Change to runDIR and start binary</span>
+<span class="nb">cd</span><span class="w"> </span><span class="s2">&quot;</span><span class="si">${</span><span class="nv">run_DIR</span><span class="si">}</span><span class="s2">&quot;</span>
+<span class="k">if</span><span class="w"> </span><span class="o">[</span><span class="w"> </span><span class="nv">$?</span><span class="w"> </span>-ne<span class="w"> </span><span class="m">0</span><span class="w"> </span><span class="o">]</span><span class="w"> </span><span class="p">;</span><span class="w"> </span><span class="k">then</span><span class="w"> </span><span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;ERROR: Entering </span><span class="si">${</span><span class="nv">run_DIR</span><span class="si">}</span><span class="s2"> failed&quot;</span><span class="p">;</span><span class="w"> </span><span class="nb">exit</span><span class="w"> </span><span class="m">1</span><span class="p">;</span><span class="w"> </span><span class="k">fi</span>
+./<span class="nv">$EXE</span><span class="w"> </span><span class="si">${</span><span class="nv">input</span><span class="si">}</span><span class="w"> </span>&gt;<span class="w"> </span><span class="nv">$output</span><span class="w"> </span><span class="m">2</span>&gt;<span class="p">&amp;</span><span class="m">1</span>
+
+
+<span class="c1">###################</span>
+<span class="c1">## FOOTER        ##</span>
+<span class="c1">###################</span>
+<span class="c1">## 5.a) Check run status</span>
+<span class="k">if</span><span class="w"> </span><span class="o">[</span><span class="w"> </span><span class="nv">$?</span><span class="w"> </span>-ne<span class="w"> </span><span class="m">0</span><span class="w"> </span><span class="o">]</span><span class="w"> </span><span class="p">;</span><span class="w"> </span><span class="k">then</span>
+<span class="w">   </span><span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;WARNING: </span><span class="si">${</span><span class="nv">EXE</span><span class="si">}</span><span class="s2"> did not run properly!&quot;</span>
+<span class="k">fi</span>
+
+<span class="c1">## 5.b) Transfer output files to submit directory</span>
+<span class="nb">cd</span><span class="w"> </span><span class="s2">&quot;</span><span class="si">${</span><span class="nv">run_DIR</span><span class="si">}</span><span class="s2">&quot;</span>
+<span class="k">for</span><span class="w"> </span>X<span class="w"> </span><span class="k">in</span><span class="w"> </span><span class="si">${</span><span class="nv">save_list</span><span class="si">}</span><span class="w"> </span><span class="p">;</span><span class="w"> </span><span class="k">do</span>
+<span class="w">   </span>cp<span class="w"> </span>-pv<span class="w"> </span><span class="s2">&quot;</span><span class="si">${</span><span class="nv">X</span><span class="si">}</span><span class="s2">&quot;</span><span class="w"> </span><span class="s2">&quot;</span><span class="si">${</span><span class="nv">submitdir</span><span class="si">}</span><span class="s2">&quot;</span>
+<span class="w">   </span><span class="k">if</span><span class="w"> </span><span class="o">[</span><span class="w"> </span><span class="nv">$?</span><span class="w"> </span>-ne<span class="w"> </span><span class="m">0</span><span class="w"> </span><span class="o">]</span><span class="w"> </span><span class="p">;</span><span class="w"> </span><span class="k">then</span><span class="w"> </span><span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;WARNING: Copy of </span><span class="si">${</span><span class="nv">X</span><span class="si">}</span><span class="s2"> failed&quot;</span><span class="p">;</span><span class="w"> </span><span class="k">fi</span>
+<span class="k">done</span>
+
+<span class="c1">## 5.c) Cleanup run directory</span>
+rm<span class="w"> </span>-f<span class="w"> </span><span class="si">${</span><span class="nv">run_DIR</span><span class="si">}</span>/*<span class="p">;</span><span class="w"> </span>rmdir<span class="w"> </span><span class="si">${</span><span class="nv">run_DIR</span><span class="si">}</span><span class="p">;</span><span class="w"> </span><span class="nb">exit</span><span class="w"> </span><span class="m">0</span>
+</pre></div>
+</div>
+<div class="admonition-how-could-this-example-be-made-more-readable discussion important admonition" id="discussion-0">
+<p class="admonition-title">How could this example be made more readable?</p>
+<p>This example has been heavily commented,
+so that it is still possible to understand it
+even for someone that is not used to the bash syntax.</p>
+<p>Are there ways to improve the readability
+or make the flow of the script more immediately understandable?</p>
+<div class="admonition-solution solution important dropdown admonition" id="solution-0">
+<p class="admonition-title">Solution</p>
+<p>Some comments:</p>
+<ul class="simple">
+<li><p>Originally, this script was the solution to an exercise.</p></li>
+<li><p>As in many other programming languages,
+in Bash it is possible to define <a class="reference internal" href="bash/composability2.html#functions"><span class="std std-ref">functions</span></a>
+to encapsulate logic
+and functions can be named in a descriptive way</p></li>
+<li><p>Some <a class="reference internal" href="defensive_programming.html#defensive-programming"><span class="std std-ref">bash options</span></a> can make the flow of the program more predictable</p></li>
+<li><p>Using <a class="reference internal" href="bash/composability2.html#subshells"><span class="std std-ref">subshells</span></a> to encapsulate side effects of some commands
+(e.g., <code class="docutils literal notranslate"><span class="pre">cd</span></code>)
+could be beneficial</p></li>
+</ul>
+<p>Do you have any other suggestions?</p>
+</div>
+</div>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>
+</pre></div>
+</div>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="ssh/tips-and-tricks.html" class="btn btn-neutral float-left" title="SSH ergonomics" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="bash/the_manual.html" class="btn btn-neutral float-right" title="Understanding the Bash manual" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright .</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>
